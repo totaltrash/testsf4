@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+    <title>Test</title>
+  </head>
+    <body>
+        <div id="app">
+            {% include 'navbar.html.twig' with { 'isadmin': true } %}
+            <navbar :is-admin="true"></navbar>
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
