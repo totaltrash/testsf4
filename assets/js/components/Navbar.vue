@@ -1,6 +1,6 @@
 <template>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar toggleable="lg" type="dark" variant="primary">
+    <b-navbar-brand href="#" v-text="title"></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -39,21 +39,8 @@
 // import { BTable } from 'bootstrap-vue';
 
 export default {
-    // components: {
-    //     BTable
-    // },
-    // props: {
-    //     items: Array
-    // },
-    // data () {
-    //     return ({
-    //         fields: [
-    //             { key: 'name', sortable: true },
-    //             { key: 'role', sortable: true },
-    //             { key: 'code', sortable: false }
-    //         ],
-    //         filter: ''
-    //     })
-    // }
+    props: {
+        title: String
+    }
 }
 </script>

@@ -9,9 +9,12 @@
   </head>
     <body>
         <div id="app">
-            {% include 'navbar.html.twig' with { 'isadmin': true } %}
-            <navbar :is-admin="true"></navbar>
-            <div class="container">
+            {#
+            {% include 'navbar.html.twig' %}
+            {% include 'navbar_c.html.twig' %}
+            #}
+            <navbar :is-admin="true" title="Direct Vue"></navbar>
+            <div class="container-fluid">
                 {% block body %}{% endblock %}
             </div>
         </div>
