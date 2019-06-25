@@ -34,6 +34,9 @@
                     :per-page="pagination.perPage"
                     :current-page="pagination.currentPage"
                 >
+                    <template slot="name" slot-scope="data">
+                        <a :href="'?id=' + data.item.id">{{ data.item.name }}</a>
+                    </template>
                 </b-table>
             </b-col>
         </b-row>
