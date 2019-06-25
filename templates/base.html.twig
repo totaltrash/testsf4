@@ -9,14 +9,17 @@
   </head>
     <body>
         <div id="app">
-            {#
             {% include 'navbar.html.twig' %}
+            {#
             {% include 'navbar_c.html.twig' %}
+            <navbar :is-admin="true" title="Direct Vue">
+                <b-navbar-nav>
+                    <b-nav-item href="/test/table">Table</b-nav-item>
+                    <b-nav-item href="/test/other">Other</b-nav-item>
+                </b-navbar-nav>
+            </navbar>
             #}
-            <navbar :is-admin="true" title="Direct Vue"></navbar>
-            <div class="container-fluid">
-                {% block body %}{% endblock %}
-            </div>
+            {% block body %}{% endblock %}
         </div>
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
