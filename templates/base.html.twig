@@ -1,27 +1,23 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {{ encore_entry_link_tags('app') }}
-    {% block stylesheets %}{% endblock %}
-    <title>Test</title>
-  </head>
-    <body>
-        <div id="app">
-            {% include 'navbar.html.twig' %}
-            {#
-            {% include 'navbar_c.html.twig' %}
-            <navbar :is-admin="true" title="Direct Vue">
-                <b-navbar-nav>
-                    <b-nav-item href="/test/table">Table</b-nav-item>
-                    <b-nav-item href="/test/other">Other</b-nav-item>
-                </b-navbar-nav>
-            </navbar>
-            #}
-            {% block body %}{% endblock %}
+{% extends 'base_base.html.twig' %}
+
+{% set container_type = 'container' %}
+
+{% block body %}
+    {% include 'navbar.html.twig'  %}
+    {#
+    {% include 'navbar_c.html.twig' %}
+    <navbar :is-admin="true" title="Direct Vue">
+        <b-navbar-nav>
+            <b-nav-item href="/test/table">Table</b-nav-item>
+            <b-nav-item href="/test/other">Other</b-nav-item>
+        </b-navbar-nav>
+    </navbar>
+    #}
+    <div class="{{ container_type }}">
+        <div class="row">
+            <div class="col">
+                {% block content %}{% endblock %}
+            </div>
         </div>
-        {{ encore_entry_script_tags('app') }}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+    </div>
+{% endblock %}

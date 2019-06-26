@@ -21,6 +21,7 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'navbar-nav']);
 
+        $menu->addChild('Projects', ['route' => 'project_index']);
         $menu->addChild('Table', ['route' => 'test_table']);
         $menu->addChild('Other', ['route' => 'test_other']);
 

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">Project</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ project.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ project.type }}</td>
+            </tr>
+            <tr>
+                <th>Property</th>
+                <td>{{ project.property }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ project.title }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ project.active ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('project_index') }}" class="btn btn-secondary">Back</a>
+
+    <a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-secondary">Edit</a>
+
+    {{ include('project/_delete_form.html.twig') }}
+{% endblock %}

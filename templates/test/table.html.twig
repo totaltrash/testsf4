@@ -1,34 +1,28 @@
 {% extends "base.html.twig" %}
-{% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <h1 class="my-4">Testing Table</h1>
-            </div>
+{% block content %}
+    <h1 class="my-4">Testing Table</h1>
+    <div class="row">
+        <div class="col-sm-2">
+            <b-button v-b-toggle.left-nav variant="primary" block class="mb-2 d-sm-none">Toggle Menu</b-button>
+            <b-collapse visible id="left-nav">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+            </b-collapse>
         </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <b-button v-b-toggle.left-nav variant="primary" block class="mb-2 d-sm-none">Toggle Menu</b-button>
-                <b-collapse visible id="left-nav">
-                    <ul class="nav flex-column nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Active</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-                    </ul>
-                </b-collapse>
-            </div>
-            <div class="col">
-                <item-table :items="{{ items }}"></item-table>
-            </div>
+        <div class="col">
+            <item-table :items="{{ items }}"></item-table>
         </div>
     </div>
 {% endblock %}
