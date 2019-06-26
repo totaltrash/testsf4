@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
@@ -21,18 +22,21 @@ class Project
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"index"})
+     * @Assert\NotBlank(message="Required field")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"index"})
+     * @Assert\NotBlank(message="Required field")
      */
     private $property;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"index"})
+     * @Assert\NotBlank(message="Required field")
      */
     private $title;
 

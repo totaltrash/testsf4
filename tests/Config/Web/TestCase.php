@@ -44,6 +44,8 @@ abstract class TestCase extends BaseWebTestCase
      */
     protected function setUp()
     {
+        parent::setUp();
+
         $this->session = $this->getSession();
         $this->page = $this->session->getPage();
         $this->assert = new Assert($this->session);
@@ -58,6 +60,7 @@ abstract class TestCase extends BaseWebTestCase
     protected function tearDown()
     {
         $this->session = null;
+        $this->page = null;
         $this->entityManager = null;
         $this->assert = null;
         $this->fixture = null;
