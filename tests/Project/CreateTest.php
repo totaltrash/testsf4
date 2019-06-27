@@ -6,10 +6,19 @@ use App\Tests\Config\Web\TestCase;
 
 class CreateTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->fixture->persistEntities([
+            $user = $this->createUserFixture('user'),
+        ]);
+    }
+
     public function testGoToCreate()
     {
+        $this->asUser('user');
         $this->visitRoute('project_index');
-
         $this->page->clickLink('Create new');
 
         $this->assert->currentRoute('project_new');
@@ -17,6 +26,7 @@ class CreateTest extends TestCase
 
     public function testCreate()
     {
+        $this->asUser('user');
         $this->visitRoute('project_new');
 
         $this->page->fillField('project_type', 'Some Project Type');
@@ -31,6 +41,7 @@ class CreateTest extends TestCase
 
     public function testValidations()
     {
+        $this->asUser('user');
         $this->visitRoute('project_new');
 
         $this->page->pressButton('Save');

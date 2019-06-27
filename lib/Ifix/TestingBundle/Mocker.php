@@ -2,19 +2,17 @@
 
 namespace Ifix\TestingBundle;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Prophecy\Prophet;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Mocker.
- *
- * Interacts with the MockContainer to override services. Also provides some
+ * Interacts with the Container to override services. Also provides some
  * helpers around creating prophecy mocks
  */
 class Mocker
 {
     /**
-     * @var 
+     * @var ContainerInterface
      */
     private $container;
 
@@ -25,17 +23,17 @@ class Mocker
 
     /**
      * Constructor.
-     * 
-     * @param KernelInterface $kernel
+     *
+     * @param   ContainerInterface  $container
      */
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->prophet = new Prophet();
     }
 
     /**
-     * Reset the mocker.
+     * Reset the mocker
      *
      * Clears the prophet of promises, and resets the mock container
      */
@@ -46,7 +44,7 @@ class Mocker
 
     /**
      * Mock a service.
-     * 
+     *
      * @param   string  $serviceId  Could be the class name, or an old_style.service_id.
      *                              If an old style service id, the classname must be provided.
      * @param   string  $className
@@ -59,11 +57,10 @@ class Mocker
             $className = $serviceId;
         }
 
-        // prepend service id with 'test.', as all overridable services need to be defined in test config and set to public
+        // Prepend service id with 'test.', as all overridable services
+        // need to be defined in test config and set to public
         $serviceId = 'test.' . $serviceId;
-
         $mock = $this->createMock($className);
-
         $this->container->set($serviceId, $mock->reveal());
 
         return $mock;
@@ -71,7 +68,7 @@ class Mocker
 
     /**
      * Create a prophecy mock helper.
-     * 
+     *
      * @param string $className
      *
      * @return Mock object

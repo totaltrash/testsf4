@@ -2,6 +2,8 @@
 
 namespace App\Tests\Config\Web;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\BrowserKit\Cookie;
 use App\Tests\Config\Web\Assert;
 use App\Tests\Config\Configuration;
 use Ifix\TestingBundle\Web\TestCase as BaseWebTestCase;
@@ -75,6 +77,27 @@ abstract class TestCase extends BaseWebTestCase
         $this->fixture = null;
 
         parent::tearDown();
+    }
+
+    protected function asUser($username)
+    {
+        //get the user
+        $user = $this->entityManager->getRepository('App:User')->findOneByUsername($username);
+        if ($user === null) {
+            throw new \Exception(sprintf('User %s not found', $username));
+        }
+
+        $session = $this->getContainer()->get('session');
+        $cookieJar = $this->getTestCaseClient()->getCookieJar();
+
+        $cookieJar->clear();
+        $firewall = 'main';
+        $token = new UsernamePasswordToken($user, null, $firewall, $user->getRoles());
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $cookieJar->set($cookie);
     }
 
     protected function enableProfiler()

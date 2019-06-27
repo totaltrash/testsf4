@@ -53,7 +53,7 @@ abstract class TestCase extends BaseWebTestCase
 
     /**
      * Visit a route.
-     * 
+     *
      * @param string $route
      * @param array  $parameters
      */
@@ -68,7 +68,7 @@ abstract class TestCase extends BaseWebTestCase
 
     /**
      * Visit an url.
-     * 
+     *
      * @param string $url
      */
     protected function visitUrl($url)
@@ -81,7 +81,7 @@ abstract class TestCase extends BaseWebTestCase
 
     /**
      * Send a post request.
-     * 
+     *
      * @param string $route
      * @param array  $routeParameters   Parameters to build the route
      * @param array  $requestParameters Parameters to include in the body of the request (assoc array)
@@ -96,40 +96,8 @@ abstract class TestCase extends BaseWebTestCase
     }
 
     /**
-     * Set the server variable to replicate NTLM authentication.
-     * 
-     * @param string $username
-     */
-    protected function asUser($username)
-    {
-        // For some reason, need to visit something before setting the user.
-        // Perhaps the client is not active by default??? Dirty workaround for now.
-        //
-        // UPDATE - Found perhaps a better way (session->start()) but was unable to test
-        // it as can't currently replicate the issue... so disabled the workaround until able to
-        // test it. Drat.
-        //
-        // EXISTING WORKAROUND:
-        // $this
-        //     ->getSession()
-        //     ->visit('')
-        // ;
-        // 
-        // POSSIBLE BETTER FIX:
-        // $this
-        //     ->getSession()
-        //     ->start()
-        // ;
-
-        $this
-            ->getTestCaseClient()
-            ->setServerParameter('REMOTE_USER', $username)
-        ;
-    }
-
-    /**
      * Fill in a hidden field.
-     * 
+     *
      * @param string $fieldId
      * @param string $value
      */
@@ -149,7 +117,7 @@ abstract class TestCase extends BaseWebTestCase
      * or change the xpath criteria to suit
      *
      * Still needed?
-     * 
+     *
      * @param string $formPath
      */
     protected function submitForm($formPath)
@@ -196,7 +164,7 @@ abstract class TestCase extends BaseWebTestCase
 
     /**
      * Get the URL for a given route and parameters.
-     * 
+     *
      * @param string $route
      * @param array  $parameters
      *
@@ -220,7 +188,7 @@ abstract class TestCase extends BaseWebTestCase
         return $this
             ->getSession()
             ->getDriver()
-            ->getTestCaseClient()
+            ->getClient()
         ;
     }
 

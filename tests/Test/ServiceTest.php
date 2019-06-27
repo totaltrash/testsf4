@@ -5,11 +5,20 @@ namespace App\Tests\Test;
 use App\Tests\Config\Web\TestCase;
 use Prophecy\Argument;
 
-/** @group wip */
 class ServiceTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->fixture->persistEntities([
+            $user = $this->createUserFixture('user'),
+        ]);
+    }
+
     public function testWithoutMock()
     {
+        $this->asUser('user');
         $this->visitRoute('test_service');
         $this->assert->currentRoute('test_service');
         $this->assert->responseContains('double(128) = 256');
@@ -19,8 +28,9 @@ class ServiceTest extends TestCase
     {
         $someService = $this->mocker->mockService('App\SomeService\SomeService');
         $someService->doubleIt(Argument::any())->shouldBeCalled()->willReturn(333);
-
+        
         //do it
+        $this->asUser('user');
         $this->visitRoute('test_service');
         $this->assert->currentRoute('test_service');
         $this->assert->responseNotContains('double(128) = 256');
@@ -29,6 +39,7 @@ class ServiceTest extends TestCase
 
     public function testAgainWithoutMock()
     {
+        $this->asUser('user');
         $this->visitRoute('test_service');
         $this->assert->currentRoute('test_service');
         $this->assert->responseContains('double(128) = 256');

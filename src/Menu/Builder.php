@@ -25,6 +25,7 @@ class Builder
         $menu->addChild('Table', ['route' => 'test_table']);
         $menu->addChild('Service', ['route' => 'test_service']);
         $menu->addChild('Other', ['route' => 'test_other']);
+        $menu->addChild('Logout', ['route' => 'security_logout']);
 
         $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
         $admin->addChild('Table', ['route' => 'test_table']);
