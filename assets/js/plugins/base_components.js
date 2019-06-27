@@ -10,19 +10,18 @@ const requireComponent = require.context(
   false,
   // The regular expression used to match base component filenames
   /[A-Z]\w+\.(vue|js)$/
-  )
-  
+)
+
 requireComponent.keys().forEach(fileName => {
   // Get component config
   const componentConfig = requireComponent(fileName)
 
   // Get component name
   // const componentName = 'Base' +
-  const componentName =
-    fileName
-      .split('/')
-      .pop()
-      .replace(/\.\w+$/, '')
+  const componentName = fileName
+    .split('/')
+    .pop()
+    .replace(/\.\w+$/, '')
 
   // Register component globally
   Vue.component(

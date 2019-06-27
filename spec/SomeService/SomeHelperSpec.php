@@ -8,12 +8,12 @@ use Prophecy\Argument;
 
 class SomeHelperSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(SomeHelper::class);
     }
 
-    function it_does_something()
+    public function it_does_something()
     {
         $this->something()->shouldReturn(true);
         $this->something(true)->shouldReturn(true);
