@@ -23,6 +23,7 @@ class Builder
 
         $menu->addChild('Projects', ['route' => 'project_index']);
         $menu->addChild('Table', ['route' => 'test_table']);
+        $menu->addChild('Service', ['route' => 'test_service']);
         $menu->addChild('Other', ['route' => 'test_other']);
 
         $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);

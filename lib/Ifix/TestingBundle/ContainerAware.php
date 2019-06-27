@@ -1,6 +1,6 @@
 <?php
 
-namespace Ifs\TestingBundle;
+namespace Ifix\TestingBundle;
 
 /**
  * Helpers for getting the Symfony kernel and container.

@@ -1,13 +1,13 @@
 <?php
 
-namespace Ifs\TestingBundle\Web;
+namespace Ifix\TestingBundle\Web;
 
 use Behat\Mink\Session;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Mink\WebAssert as BaseWebAssert;
-use Ifs\TestingBundle\Assert as BaseAssert;
+use Ifix\TestingBundle\Assert as BaseAssert;
 use BadMethodCallException;
 use RuntimeException;
 

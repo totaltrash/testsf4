@@ -1,6 +1,6 @@
 <?php
 
-namespace Ifs\TestingBundle;
+namespace Ifix\TestingBundle;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;

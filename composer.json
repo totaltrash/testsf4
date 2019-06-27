@@ -34,6 +34,8 @@
         "behat/mink": "dev-master",
         "behat/mink-browserkit-driver": "dev-master",
         "doctrine/data-fixtures": "^1.3",
+        "memio/spec-gen": "^0.9.0",
+        "phpspec/phpspec": "^5.1",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -44,7 +46,8 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "bin-dir": "bin"
     },
     "autoload": {
         "psr-4": {

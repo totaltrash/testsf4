@@ -4,7 +4,6 @@ namespace App\Tests\Project;
 
 use App\Tests\Config\Web\TestCase;
 
-/** @group wip */
 class CreateTest extends TestCase
 {
     public function testGoToCreate()

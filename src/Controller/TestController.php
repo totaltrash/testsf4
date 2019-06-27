@@ -12,6 +12,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class TestController extends AbstractController
 {
     /**
+     * @Route("/service", name="test_service")
+     */
+    public function service(\App\SomeService\SomeService $service)
+    {
+        $number = 128;
+        $doubled = $service->doubleIt($number);
+        return $this->render('test/service.html.twig', [
+            'number' => $number,
+            'doubled' => $doubled,
+        ]);
+    }
+
+    /**
      * @Route("/other", name="test_other")
      */
     public function other()

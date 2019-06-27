@@ -1,0 +1,7 @@
+# Define services that can be overridden during testing, with fakes/stubs/mocks.
+# When using the Ifix\TestingBundle\Mocker, prefix the overridden service id with 'test.'.
+services:
+    _defaults:
+        public: true
+ 
+    test.App\SomeService\SomeService: '@App\SomeService\SomeService'

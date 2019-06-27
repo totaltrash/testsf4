@@ -3,7 +3,7 @@
 namespace App\Tests\Config\Web;
 
 use Behat\Mink\Session;
-use Ifs\TestingBundle\Web\Assert as BaseAssert;
+use Ifix\TestingBundle\Web\Assert as BaseAssert;
 
 /**
  * Local application assertions for testing in a web context
