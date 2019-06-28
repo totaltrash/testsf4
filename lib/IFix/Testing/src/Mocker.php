@@ -35,7 +35,7 @@ class Mocker
     /**
      * Reset the mocker
      *
-     * Clears the prophet of promises, and resets the mock container
+     * Clears the prophet of promises
      */
     public function reset()
     {

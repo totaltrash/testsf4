@@ -29,7 +29,7 @@ class FixtureLoader
      *
      * @param sting[] $sequences The names of the sequences to reset
      */
-    public function resetDatabase(array $sequences = array(), array $exclusions = array())
+    public function resetDatabase(array $sequences = [], array $exclusions = [])
     {
         $this->purgeDatabase($exclusions);
         $this->resetSequences($sequences);
@@ -38,7 +38,7 @@ class FixtureLoader
     /**
      * Purge the ORM tables in the database.
      */
-    public function purgeDatabase(array $exclusions = array())
+    public function purgeDatabase(array $exclusions = [])
     {
         $purger = new ORMPurger($this->entityManager, $exclusions);
         $purger->purge();
@@ -66,7 +66,7 @@ class FixtureLoader
      * @param sting[] $sequences The names of the sequences to reset
      * @param int     $next      The next number to use in the sequence
      */
-    public function resetSequences(array $sequences = array(), $next = 1)
+    public function resetSequences(array $sequences = [], $next = 1)
     {
         foreach ($sequences as $sequence) {
             $this->resetSequence($sequence, $next);
@@ -93,7 +93,7 @@ class FixtureLoader
      *
      * @param sting[] $tables   The names of the tables to reset
      */
-    public function resetTables(array $tables = array())
+    public function resetTables(array $tables = [])
     {
         foreach ($tables as $table) {
             $this->resetTable($table);
@@ -123,7 +123,7 @@ class FixtureLoader
      * @param bool    $clear             Clear the entity manager?
      * @param bool    $clearOnEachEntity Clear the entity manager after flushing each entity?
      */
-    public function persistEntities(array $entities = array(), $clear = true, $clearOnEachEntity = false)
+    public function persistEntities(array $entities = [], $clear = true, $clearOnEachEntity = false)
     {
         foreach ($entities as $entity) {
             $this->persistEntity($entity, $clearOnEachEntity);

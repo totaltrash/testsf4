@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Tests\Config\Web;
+namespace App\Tests\Config\Command;
 
-use App\Tests\Config\Web\Assert;
+use App\Tests\Config\Command\Assert;
 use App\Tests\Config\Configuration;
-use IFix\Testing\Web\TestCase as BaseWebTestCase;
+use IFix\Testing\Command\TestCase as BaseTestCase;
 use IFix\Testing\FixtureLoader;
 use IFix\Testing\Mocker;
+use IFix\Testing\ContainerAware;
 
 /**
- * Local application test helpers for testing in a web context
+ * Local application test helpers for testing in a command context
  */
-abstract class TestCase extends BaseWebTestCase
+abstract class TestCase extends BaseTestCase
 {
     use Configuration;
+    use ContainerAware;
 
     /**
      * @var Behat\Mink\Session
@@ -52,10 +54,8 @@ abstract class TestCase extends BaseWebTestCase
     {
         parent::setUp();
 
-        $this->session = $this->getSession();
-        $this->page = $this->session->getPage();
-        $this->assert = new Assert($this->session);
         $this->entityManager = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $this->assert = new Assert($this->entityManager);
         $this->fixture = new FixtureLoader($this->entityManager);
         $this->fixture->resetDatabase($this->sequences, $this->exclusions);
         $this->mocker = new Mocker($this->getContainer());
@@ -68,8 +68,6 @@ abstract class TestCase extends BaseWebTestCase
     {
         $this->mocker->checkPredictions();
         $this->mocker = null;
-        $this->session = null;
-        $this->page = null;
         $this->entityManager = null;
         $this->assert = null;
         $this->fixture = null;
@@ -77,17 +75,8 @@ abstract class TestCase extends BaseWebTestCase
         parent::tearDown();
     }
 
-    protected function asUser($username)
+    public function getAssert()
     {
-        $user = $this->entityManager->getRepository('App:User')->findOneByUsername($username);
-        if ($user === null) {
-            throw new \Exception(sprintf('User [%s] not found', $username));
-        }
-        $this->setSessionAuthenticatedUser($user);
+        return $this->assert;
     }
-
-    // protected function asServerAuthenticatedUser($username)
-    // {
-    //     $this->setServerAuthenticatedUsername($username);
-    // }
 }

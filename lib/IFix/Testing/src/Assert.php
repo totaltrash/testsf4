@@ -11,7 +11,7 @@ class Assert
 {
     /**
      * Helper method to generate PHPUnit assertion exceptions.
-     * 
+     *
      * @param bool   $success
      * @param string $failMessage Message to use upon failure
      */
@@ -22,14 +22,14 @@ class Assert
 
     /**
      * Check the array contains the expected elements
-     * 
+     *
      * @param  array  $haystack
      * @param  mixed  $needles
      */
     public function arrayContains(array $haystack, $needles)
     {
         if (!is_array($needles)) {
-            $needles = array($needles);
+            $needles = [ $needles ];
         }
         
         $this->assert(count($haystack) === count($needles), sprintf(

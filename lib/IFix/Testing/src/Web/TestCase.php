@@ -3,6 +3,9 @@
 namespace IFix\Testing\Web;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\BrowserKit\Cookie;
 use IFix\Testing\ContainerAware;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Session;
@@ -34,22 +37,29 @@ abstract class TestCase extends BaseWebTestCase
     }
 
     /**
-     * Stores the session statically, can cause issues with session state remaining between tests.
-     * Kept here just in case...
+     * Set a user as having authenticated on a given firewall
      */
-    // public function getSession()
-    // {
-    //     if (null == self::$session) {
-    //         $driver = new BrowserKitDriver(static::createClient());
+    protected function setSessionAuthenticatedUser(UserInterface $user, $firewall = 'main')
+    {
+        $session = $this->getContainer()->get('session');
+        $cookieJar = $this->getTestCaseClient()->getCookieJar();
 
-    //         self::$session = new Session($driver);
+        $cookieJar->clear();
+        $token = new UsernamePasswordToken($user, null, $firewall, $user->getRoles());
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
 
-    //         // start the session
-    //         self::$session->start();
-    //     }
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $cookieJar->set($cookie);
+    }
 
-    //     return self::$session;
-    // }
+    protected function setServerAuthenticatedUsername($username, $serverVariable = 'REMOTE_USER')
+    {
+        $this
+            ->getTestCaseClient()
+            ->setServerParameter($serverVariable, $username)
+        ;
+    }
 
     /**
      * Visit a route.
@@ -201,5 +211,10 @@ abstract class TestCase extends BaseWebTestCase
             ->getSession()
             ->getPage()
         ;
+    }
+
+    protected function enableProfiler()
+    {
+        $this->getSymfonyDriver()->getClient()->enableProfiler();
     }
 }
