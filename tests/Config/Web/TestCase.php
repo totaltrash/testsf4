@@ -6,9 +6,9 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\BrowserKit\Cookie;
 use App\Tests\Config\Web\Assert;
 use App\Tests\Config\Configuration;
-use Ifix\Testing\Web\TestCase as BaseWebTestCase;
-use Ifix\Testing\FixtureLoader;
-use Ifix\Testing\Mocker;
+use IFix\Testing\Web\TestCase as BaseWebTestCase;
+use IFix\Testing\FixtureLoader;
+use IFix\Testing\Mocker;
 
 /**
  * Local application test helpers for testing in a web context

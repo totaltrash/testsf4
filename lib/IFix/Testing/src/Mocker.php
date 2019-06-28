@@ -1,6 +1,6 @@
 <?php
 
-namespace Ifix\Testing;
+namespace IFix\Testing;
 
 use Prophecy\Prophet;
 use Symfony\Component\DependencyInjection\ContainerInterface;

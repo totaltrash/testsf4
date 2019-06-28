@@ -1,0 +1,21 @@
+{
+    "description": "IFix extensions to the Symfony MakerBundle",
+    "name": "ifix/maker-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "keywords": [
+        "generator",
+        "code generator",
+        "scaffolding",
+        "scaffold"
+    ],
+    "require": {
+        "php": "^7.0.8",
+        "symfony/maker-bundle": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IFix\\Bundle\\MakerBundle\\": "src/"
+        }
+    }
+}

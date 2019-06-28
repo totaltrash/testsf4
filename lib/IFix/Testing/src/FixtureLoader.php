@@ -1,6 +1,6 @@
 <?php
 
-namespace Ifix\Testing;
+namespace IFix\Testing;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -8,14 +8,14 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 /**
  * Fixture loader.
- * 
+ *
  * Helper methods to reset database state
  */
 class FixtureLoader
 {
     /**
      * Constructor.
-     * 
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -26,7 +26,7 @@ class FixtureLoader
     /**
      * Reset the database state - purge all ORM tables and reset
      * the sequences.
-     * 
+     *
      * @param sting[] $sequences The names of the sequences to reset
      */
     public function resetDatabase(array $sequences = array(), array $exclusions = array())
@@ -46,7 +46,7 @@ class FixtureLoader
 
     /**
      * Reset a sequence.
-     * 
+     *
      * @param sting $sequenceName The name of the sequence to reset
      * @param int   $next         The next number to use in the sequence
      *
@@ -62,7 +62,7 @@ class FixtureLoader
 
     /**
      * Reset an array of sequences.
-     * 
+     *
      * @param sting[] $sequences The names of the sequences to reset
      * @param int     $next      The next number to use in the sequence
      */
@@ -75,7 +75,7 @@ class FixtureLoader
 
     /**
      * Reset a table.
-     * 
+     *
      * @param sting $tableName The name of the table to reset
      *
      * @return FixtureLoader
@@ -90,7 +90,7 @@ class FixtureLoader
 
     /**
      * Reset an array of tables.
-     * 
+     *
      * @param sting[] $tables   The names of the tables to reset
      */
     public function resetTables(array $tables = array())
@@ -102,7 +102,7 @@ class FixtureLoader
 
     /**
      * Persist an entity.
-     * 
+     *
      * @param mixed $item  The item to persist
      * @param bool  $clear Clear the entity manager?
      */
@@ -118,7 +118,7 @@ class FixtureLoader
 
     /**
      * Persist an array of entities.
-     * 
+     *
      * @param mixed[] $item              An array of items to persist
      * @param bool    $clear             Clear the entity manager?
      * @param bool    $clearOnEachEntity Clear the entity manager after flushing each entity?
