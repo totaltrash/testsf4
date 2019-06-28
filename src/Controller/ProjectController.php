@@ -6,8 +6,8 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -18,21 +18,23 @@ class ProjectController extends AbstractController
 {
     /**
      * @Route("/", name="project_index", methods={"GET"})
+     * @Template
      */
-    public function index(ProjectRepository $projectRepository, SerializerInterface $serializer): Response
+    public function index(ProjectRepository $projectRepository, SerializerInterface $serializer)
     {
         $projects = $projectRepository->findAll();
 
-        return $this->render('project/index.html.twig', [
+        return [
             'projects' => $projects,
             'projects_json' => $serializer->serialize($projects, 'json', ['index']),
-        ]);
+        ];
     }
 
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
+     * @Template
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
@@ -46,26 +48,28 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index');
         }
 
-        return $this->render('project/new.html.twig', [
+        return [
             'project' => $project,
             'form' => $form->createView(),
-        ]);
+        ];
     }
 
     /**
      * @Route("/{id}", name="project_show", methods={"GET"})
+     * @Template
      */
-    public function show(Project $project): Response
+    public function show(Project $project)
     {
-        return $this->render('project/show.html.twig', [
+        return [
             'project' => $project,
-        ]);
+        ];
     }
 
     /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @Template
      */
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project)
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -78,16 +82,16 @@ class ProjectController extends AbstractController
             ]);
         }
 
-        return $this->render('project/edit.html.twig', [
+        return [
             'project' => $project,
             'form' => $form->createView(),
-        ]);
+        ];
     }
 
     /**
      * @Route("/{id}", name="project_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Project $project): Response
+    public function delete(Request $request, Project $project)
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-// use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("/test")
@@ -13,31 +13,33 @@ class TestController extends AbstractController
 {
     /**
      * @Route("/service", name="test_service")
+     * @Template
      */
     public function service(\App\SomeService\SomeService $service)
     {
         $number = 128;
         $doubled = $service->doubleIt($number);
-        return $this->render('test/service.html.twig', [
+        return [
             'number' => $number,
             'doubled' => $doubled,
-        ]);
+        ];
     }
 
     /**
      * @Route("/other", name="test_other")
+     * @Template
      */
     public function other()
     {
-        return $this->render('test/other.html.twig');
     }
 
     /**
      * @Route("/table", name="test_table")
+     * @Template
      */
     public function table()
     {
-        return $this->render('test/table.html.twig', [
+        return [
             'items' => json_encode([
                 [
                     "id" => 1,
@@ -376,6 +378,6 @@ class TestController extends AbstractController
                     "active" => true,
                 ]
             ])
-        ]);
+        ];
     }
 }
