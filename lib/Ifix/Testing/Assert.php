@@ -1,6 +1,6 @@
 <?php
 
-namespace Ifix\TestingBundle;
+namespace Ifix\Testing;
 
 use PHPUnit\Framework\Assert as PhpUnitAssert;
 

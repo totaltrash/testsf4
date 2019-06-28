@@ -1,9 +1,9 @@
 <?php
 
-namespace Ifix\TestingBundle\Web;
+namespace Ifix\Testing\Web;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
-use Ifix\TestingBundle\ContainerAware;
+use Ifix\Testing\ContainerAware;
 use Behat\Mink\Driver\BrowserKitDriver;
 use Behat\Mink\Session;
 
