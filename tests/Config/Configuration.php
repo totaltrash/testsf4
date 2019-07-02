@@ -14,6 +14,7 @@ trait Configuration
     private $sequences = array(
         'project_id_seq',
         'project_type_id_seq',
+        'project_title_id_seq',
     );
 
     //define tables that should not be purged

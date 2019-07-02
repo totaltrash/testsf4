@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Project Titles</h1>
+    <project-title-table :items="{{ project_titles_json }}" show-link="{{ path('admin_project_title_show', {'id': '_id_'}) }}"></project-title-table>
+    <a href="{{ path('admin_project_title_new') }}" class="btn btn-primary">Add New</a>
+{% endblock %}

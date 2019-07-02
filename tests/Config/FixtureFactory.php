@@ -68,4 +68,14 @@ trait FixtureFactory
 
         return $fixture;
     }
+
+    protected function createProjectTitleFixture($name, array $options = [])
+    {
+        $fixture = new Entity\ProjectTitle();
+        $fixture
+            ->setName($name)
+        ;
+
+        return $fixture;
+    }
 }
