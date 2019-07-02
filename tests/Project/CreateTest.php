@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Project;
+namespace Tests\Project;
 
-use App\Tests\Config\Web\TestCase;
+use Tests\Config\Web\TestCase;
 
 class CreateTest extends TestCase
 {
@@ -19,7 +19,7 @@ class CreateTest extends TestCase
     {
         $this->asUser('user');
         $this->visitRoute('project_index');
-        $this->page->clickLink('Create new');
+        $this->page->clickLink('Add New');
 
         $this->assert->currentRoute('project_new');
     }

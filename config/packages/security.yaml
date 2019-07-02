@@ -2,7 +2,6 @@ security:
     encoders:
         App\Entity\User:
             algorithm: argon2i
-
     providers:
         app_user_provider:
             entity:
@@ -27,7 +26,7 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

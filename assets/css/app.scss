@@ -2,9 +2,13 @@
   font-size: 13px;
 }
 
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
 
 #content-wrapper > h1 {
   @extend .my-4;
+}
+
+.table-toolbar > div {
+  @extend .py-1;
 }

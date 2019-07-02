@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Project;
+namespace Tests\Project;
 
-use App\Tests\Config\Web\TestCase;
+use Tests\Config\Web\TestCase;
 
 class IndexTest extends TestCase
 {

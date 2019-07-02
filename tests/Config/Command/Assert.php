@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Config\Command;
+namespace Tests\Config\Command;
 
 use IFix\Testing\Command\Assert as BaseAssert;
 use Symfony\Component\Console\Tester\CommandTester;

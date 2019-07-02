@@ -3,6 +3,7 @@
 namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class Builder
 {
@@ -16,7 +17,7 @@ class Builder
         $this->factory = $factory;
     }
 
-    public function createMainMenu()
+    public function createMainMenu(AuthorizationCheckerInterface $sc)
     {
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'navbar-nav']);
@@ -27,9 +28,10 @@ class Builder
         $menu->addChild('Other', ['route' => 'test_other']);
         $menu->addChild('Logout', ['route' => 'security_logout']);
 
-        $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
-        $admin->addChild('Table', ['route' => 'test_table']);
-        $admin->addChild('Other', ['route' => 'test_other']);
+        if ($sc->isGranted('ROLE_ADMIN')) {
+            $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
+            $admin->addChild('Project Types', ['route' => 'admin_project_type_index']);
+        }
 
         return $menu;
     }

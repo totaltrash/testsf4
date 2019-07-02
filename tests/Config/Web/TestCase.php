@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Config\Web;
+namespace Tests\Config\Web;
 
-use App\Tests\Config\Web\Assert;
-use App\Tests\Config\Configuration;
+use Tests\Config\Web\Assert;
+use Tests\Config\Configuration;
 use IFix\Testing\Web\TestCase as BaseWebTestCase;
 use IFix\Testing\FixtureLoader;
 use IFix\Testing\Mocker;

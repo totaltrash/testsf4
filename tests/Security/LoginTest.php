@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Security;
+namespace Tests\Security;
 
-use App\Tests\Config\Web\TestCase;
+use Tests\Config\Web\TestCase;
 
 class LoginTest extends TestCase
 {

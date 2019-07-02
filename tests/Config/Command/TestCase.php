@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Config\Command;
+namespace Tests\Config\Command;
 
-use App\Tests\Config\Command\Assert;
-use App\Tests\Config\Configuration;
+use Tests\Config\Command\Assert;
+use Tests\Config\Configuration;
 use IFix\Testing\Command\TestCase as BaseTestCase;
 use IFix\Testing\FixtureLoader;
 use IFix\Testing\Mocker;

@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Project Types</h1>
+    <project-type-table :items="{{ project_types_json }}" show-link="{{ path('admin_project_type_show', {'id': '_id_'}) }}"></project-type-table>
+    <a href="{{ path('admin_project_type_new') }}" class="btn btn-primary">Add New</a>
+{% endblock %}

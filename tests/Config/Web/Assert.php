@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Config\Web;
+namespace Tests\Config\Web;
 
 use Behat\Mink\Session;
 use IFix\Testing\Web\Assert as BaseAssert;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Config;
+namespace Tests\Config;
 
 use App\Entity;
 use DateTime;
@@ -11,7 +11,7 @@ trait FixtureFactory
     protected function createUserFixture($username, array $options = [])
     {
         $options = array_merge([
-            'roles' => [],
+            'roles' => [ 'ROLE_USER' ],
             'password' => $username . 'pass',
             'email' => $username . '@email.com',
             'firstName' => 'Some',
@@ -54,6 +54,16 @@ trait FixtureFactory
             ->setProperty($options['property'])
             ->setTitle($options['title'])
             ->setActive($options['active'])
+        ;
+
+        return $fixture;
+    }
+
+    protected function createProjectTypeFixture($name, array $options = [])
+    {
+        $fixture = new Entity\ProjectType();
+        $fixture
+            ->setName($name)
         ;
 
         return $fixture;

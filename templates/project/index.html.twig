@@ -5,5 +5,5 @@
 {% block content %}
     <h1>Projects</h1>
     <project-table :items="{{ projects_json }}" show-link="{{ path('project_show', {'id': '_id_'}) }}"></project-table>
-    <a href="{{ path('project_new') }}" class="btn btn-primary">Create new</a>
+    <a href="{{ path('project_new') }}" class="btn btn-primary">Add New</a>
 {% endblock %}

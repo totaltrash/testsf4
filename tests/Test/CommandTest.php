@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Tests\Test;
+namespace Tests\Test;
 
-use App\Tests\Config\Command\TestCase;
+use Tests\Config\Command\TestCase;
 use App\Command;
 
-/** @group wip */
 class CommandTest extends TestCase
 {
     const COMMAND_NAME = 'app:test';

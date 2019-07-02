@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Test;
+namespace Tests\Test;
 
-use App\Tests\Config\Web\TestCase;
+use Tests\Config\Web\TestCase;
 use Prophecy\Argument;
 
 class ServiceTest extends TestCase

@@ -9,9 +9,6 @@
           </b-input-group-append>
         </b-input-group>
       </b-col>
-      <b-col md="2">
-        <b-form-checkbox v-model="filter.active" name="filter-active" switch class="my-2">Active</b-form-checkbox>
-      </b-col>
       <b-col>
         <b-pagination
           v-model="pagination.currentPage"
@@ -22,7 +19,6 @@
         ></b-pagination>
       </b-col>
     </b-row>
-
     <b-row>
       <b-col>
         <b-table
@@ -30,14 +26,13 @@
           hover
           :items="filteredItems"
           :fields="fields"
-          sort-by="id"
-          sort-desc
+          sort-by="name"
           show-empty
           :per-page="pagination.perPage"
           :current-page="pagination.currentPage"
         >
-          <template slot="type" slot-scope="data">
-            <a :href="showLink.replace('_id_', data.item.id)">{{ data.item.type }}</a>
+          <template slot="name" slot-scope="data">
+            <a :href="showLink.replace('_id_', data.item.id)">{{ data.item.name }}</a>
           </template>
         </b-table>
       </b-col>
@@ -55,21 +50,12 @@ export default {
     }
   },
   mounted() {
-    //Set the initial number of items
     this.pagination.totalRows = this.filteredItems.length
   },
   data() {
     return {
-      fields: [
-        { key: "id", sortable: true },
-        { key: "type", sortable: true },
-        { key: "property", sortable: true },
-        { key: "title", sortable: true }
-      ],
-      filter: {
-        keyword: "",
-        active: true
-      },
+      fields: [{ key: "id", sortable: true }, { key: "name", sortable: true }],
+      filter: { keyword: "" },
       pagination: {
         totalRows: 1,
         currentPage: 1,
@@ -83,13 +69,7 @@ export default {
     filteredItems() {
       let keyword = this.filter.keyword.toLowerCase()
       let filteredItems = this.items.filter(item => {
-        return (
-          item.active === this.filter.active &&
-          (!this.filter.keyword ||
-            item.type.toLowerCase().includes(keyword) ||
-            item.property.toLowerCase().includes(keyword) ||
-            item.title.toLowerCase().includes(keyword))
-        )
+        return !this.filter.keyword || item.name.toLowerCase().includes(keyword)
       })
       this.pagination.totalRows = filteredItems.length
       return filteredItems
