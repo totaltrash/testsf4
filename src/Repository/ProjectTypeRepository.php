@@ -19,6 +19,11 @@ class ProjectTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, ProjectType::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
+
     // /**
     //  * @return ProjectType[] Returns an array of ProjectType objects
     //  */

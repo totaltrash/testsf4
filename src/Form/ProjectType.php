@@ -12,9 +12,9 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type')
-            ->add('property')
-            ->add('title')
+            ->add('type', null, ['attr' => ['autocomplete' => 'off', 'list' => 'project-types']])
+            ->add('property', null, ['attr' => ['autocomplete' => 'off']])
+            ->add('title', null, ['attr' => ['autocomplete' => 'off', 'list' => 'project-titles']])
             ->add('active')
         ;
     }

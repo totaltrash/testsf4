@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Repository\ProjectTypeRepository;
+use App\Repository\ProjectTitleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +36,11 @@ class ProjectController extends AbstractController
      * @Route("/new", name="project_new", methods={"GET","POST"})
      * @Template
      */
-    public function new(Request $request)
-    {
+    public function new(
+        Request $request,
+        ProjectTypeRepository $projectTypeRepo,
+        ProjectTitleRepository $projectTitleRepo
+    ) {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -51,6 +56,8 @@ class ProjectController extends AbstractController
         return [
             'project' => $project,
             'form' => $form->createView(),
+            'projectTypes' => $projectTypeRepo->findAll(),
+            'projectTitles' => $projectTitleRepo->findAll(),
         ];
     }
 
@@ -69,8 +76,12 @@ class ProjectController extends AbstractController
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
      * @Template
      */
-    public function edit(Request $request, Project $project)
-    {
+    public function edit(
+        Request $request,
+        Project $project,
+        ProjectTypeRepository $projectTypeRepo,
+        ProjectTitleRepository $projectTitleRepo
+    ) {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -85,6 +96,8 @@ class ProjectController extends AbstractController
         return [
             'project' => $project,
             'form' => $form->createView(),
+            'projectTypes' => $projectTypeRepo->findAll(),
+            'projectTitles' => $projectTitleRepo->findAll(),
         ];
     }
 

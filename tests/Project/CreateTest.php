@@ -12,6 +12,12 @@ class CreateTest extends TestCase
 
         $this->fixture->persistEntities([
             $user = $this->createUserFixture('user'),
+            $this->createProjectTypeFixture('Some Project Type 2'),
+            $this->createProjectTypeFixture('Some Project Type 1'),
+            $this->createProjectTypeFixture('Some Project Type 3'),
+            $this->createProjectTitleFixture('Some Project Title 2'),
+            $this->createProjectTitleFixture('Some Project Title 1'),
+            $this->createProjectTitleFixture('Some Project Title 3'),
         ]);
     }
 
