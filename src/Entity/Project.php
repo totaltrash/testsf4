@@ -44,7 +44,7 @@ class Project
      * @ORM\Column(type="boolean")
      * @Groups({"index"})
      */
-    private $active;
+    private $active = true;
 
     public function getId(): ?int
     {

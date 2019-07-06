@@ -88,7 +88,7 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index', [
+            return $this->redirectToRoute('project_show', [
                 'id' => $project->getId(),
             ]);
         }
@@ -102,16 +102,20 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="project_delete", methods={"GET","POST"})
+     * @Template
      */
     public function delete(Request $request, Project $project)
     {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($project);
-            $entityManager->flush();
+        if ($request->isMethod('POST')) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($project);
+            $em->flush();
+            return $this->redirectToRoute('project_index');
         }
 
-        return $this->redirectToRoute('project_index');
+        return [
+            'project' => $project,
+        ];
     }
 }
