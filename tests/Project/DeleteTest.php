@@ -6,7 +6,7 @@ use Tests\Config\Web\TestCase;
 
 class DeleteTest extends TestCase
 {
-    const DELETE_LINK = 'Delete';
+    const DELETE_LINK = 'Delete Project';
     const CONFIRM_BUTTON = 'Confirm Delete';
 
     public function setUp()

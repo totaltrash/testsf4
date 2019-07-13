@@ -23,11 +23,17 @@ class Builder
         $menu->setChildrenAttributes(['class' => 'navbar-nav']);
 
         $menu->addChild('Projects', ['route' => 'project_index']);
-        $menu->addChild('Table', ['route' => 'test_table']);
-        $menu->addChild('Service', ['route' => 'test_service']);
-        $menu->addChild('Other', ['route' => 'test_other']);
-        $menu->addChild('Profile', ['route' => 'profile_index']);
-        $menu->addChild('Logout', ['route' => 'security_logout']);
+        
+        $profile = $menu->addChild('Profile', ['attributes' => ['dropdown' => true]]);
+        $profile->addChild('Profile', ['route' => 'profile_index']);
+        $profile->addChild('Change Password', ['route' => 'profile_change_password']);
+        $profile->addChild('Logout', ['route' => 'security_logout']);
+
+        $example = $menu->addChild('Example', ['attributes' => ['dropdown' => true]]);
+        $example->addChild('Table', ['route' => 'test_table']);
+        $example->addChild('Service', ['route' => 'test_service']);
+        $example->addChild('Other', ['route' => 'test_other']);
+
 
         if ($sc->isGranted('ROLE_ADMIN')) {
             $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);

@@ -12,3 +12,17 @@
 .table-toolbar > div {
   @extend .py-1;
 }
+
+.form-group-static {
+  @extend .form-group;
+  @extend .row;
+
+  > label {
+    @extend .col-form-label;
+    font-weight: bold;
+  }
+
+  > div {
+    @extend .form-control-plaintext;
+  }
+}

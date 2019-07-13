@@ -2,7 +2,35 @@
 
 {% block title %}Profile{% endblock %}
 
+{% set user = app.user %}
+
 {% block content %}
-    <h1>{{ app.user.displayname }}</h1>
-    <a href="{{ path('profile_change_password') }}">Change Password</a>
+    <h1>User Profile</h1>
+    <div class="form-group-static">
+        <label class="col-sm-2">Username</label>
+        <div class="col-sm-10">
+            {{ user.username }}
+        </div>
+    </div>
+    <div class="form-group-static">
+        <label class="col-sm-2">Name</label>
+        <div class="col-sm-10">
+            {{ user.displayname }}
+        </div>
+    </div>
+    <div class="form-group-static">
+        <label class="col-sm-2">Email</label>
+        <div class="col-sm-10">
+            {{ user.email }}
+        </div>
+    </div>
+    <div class="form-group-static">
+        <label class="col-sm-2">Roles</label>
+        <div class="col-sm-10">
+            {{ user.roles|join(', ') }}
+        </div>
+    </div>
+
+    <a href="{{ path('profile_change_password') }}" class="btn btn-primary">Change Password</a>
+    <a href="{{ path('security_logout') }}" class="btn btn-link">Logout</a>
 {% endblock %}
