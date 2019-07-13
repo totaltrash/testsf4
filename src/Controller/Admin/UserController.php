@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ChangePasswordType;
 use App\Repository\UserRepository;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +80,30 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_user_show', [
+                'id' => $user->getId(),
+            ]);
+        }
+
+        return [
+            'user' => $user,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @Route("/{id}/changepassword", name="admin_user_change_password", methods={"GET","POST"})
+     * @Template
+     */
+    public function changePassword(Request $request, User $user, Encoder $encoder)
+    {
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_user_show', [

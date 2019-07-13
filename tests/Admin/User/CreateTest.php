@@ -27,7 +27,6 @@ class CreateTest extends TestCase
         $this->assert->currentRoute('admin_user_new');
     }
 
-    /** @group wip */
     public function testCreate()
     {
         $this->asUser('admin');
