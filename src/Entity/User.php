@@ -21,6 +21,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     private $username;
 
@@ -31,6 +32,7 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private $password;
@@ -38,18 +40,20 @@ class User implements UserInterface
     /**
      * @var string The plain password, populated only when creating user or updating password
      *
-     * @Assert\NotBlank(message="Password must not be blank")
-     * @Assert\Length(min="8", minMessage="Password is too short")
+     * @Assert\NotBlank(message="Password must not be blank", groups={"password"})
+     * @Assert\Length(min="8", minMessage="Password is too short", groups={"password"})
      */
     private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
      */
     private $surname;
 
@@ -60,6 +64,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -86,7 +91,7 @@ class User implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -160,7 +165,7 @@ class User implements UserInterface
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -172,7 +177,7 @@ class User implements UserInterface
         return $this->surname;
     }
 
-    public function setSurname(string $surname): self
+    public function setSurname(?string $surname): self
     {
         $this->surname = $surname;
 
@@ -196,7 +201,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 

@@ -12,6 +12,7 @@ trait Configuration
 
     // Define sequences for database resets
     private $sequences = array(
+        'app_user_id_seq',
         'project_id_seq',
         'project_type_id_seq',
         'project_title_id_seq',

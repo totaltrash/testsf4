@@ -31,6 +31,7 @@ class Builder
 
         if ($sc->isGranted('ROLE_ADMIN')) {
             $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
+            $admin->addChild('User Management', ['route' => 'admin_user_index']);
             $admin->addChild('Project Types', ['route' => 'admin_project_type_index']);
             $admin->addChild('Project Titles', ['route' => 'admin_project_title_index']);
         }

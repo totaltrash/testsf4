@@ -8,8 +8,16 @@ use ReflectionClass;
 
 trait FixtureFactory
 {
-    protected function createUserFixture($username, array $options = [])
+    /**
+     * @param string $username
+     * @param array|string $options If a string, specifies the users role, else an array of options
+     */
+    protected function createUserFixture($username, $options = [])
     {
+        if (is_string($options)) {
+            $options = ['roles' => $options];
+        }
+
         $options = array_merge([
             'roles' => [ 'ROLE_USER' ],
             'password' => $username . 'pass',

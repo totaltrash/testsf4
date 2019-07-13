@@ -17,8 +17,6 @@ class ChangePasswordType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
-                'required' => false,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password'],
             ])
@@ -29,6 +27,7 @@ class ChangePasswordType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['password'],
         ]);
     }
 }
