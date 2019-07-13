@@ -22,7 +22,7 @@ class ChangePasswordTest extends TestCase
         $this->page->clickLink('Change Password');
         $this->assert->currentRoute('profile_change_password');
         $this->page->fillField('Password', 'MyNewPassword');
-        $this->page->fillField('Confirm Password', 'MyNewPassword');
+        $this->page->fillField('Confirm password', 'MyNewPassword');
         $this->page->pressButton('Submit');
         $this->assert->currentRoute('profile_index');
 
@@ -41,7 +41,7 @@ class ChangePasswordTest extends TestCase
         $this->asUser('user');
         $this->visitRoute('profile_change_password');
         $this->page->fillField('Password', $password);
-        $this->page->fillField('Confirm Password', $confirmPassword);
+        $this->page->fillField('Confirm password', $confirmPassword);
         $this->page->pressButton('Submit');
         $this->assert->currentRoute('profile_change_password');
         $this->assert->responseContains($expectedMessage);
