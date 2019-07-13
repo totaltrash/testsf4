@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="app_user")
@@ -35,6 +36,14 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string The plain password, populated only when creating user or updating password
+     *
+     * @Assert\NotBlank(message="Password must not be blank")
+     * @Assert\Length(min="8", minMessage="Password is too short")
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=50)
      */
     private $firstName;
@@ -57,6 +66,14 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Display name
+     */
+    public function getDisplayName(): string
+    {
+        return (string) $this->firstName . ' ' . $this->surname;
     }
 
     /**
@@ -110,6 +127,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -123,8 +152,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string

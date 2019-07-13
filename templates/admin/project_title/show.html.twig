@@ -8,5 +8,5 @@
     {{ include('admin/project_title/_detail.html.twig') }}
     <a href="{{ path('admin_project_title_edit', {'id': project_title.id}) }}" class="btn btn-primary">Edit</a>
     <a href="{{ path('admin_project_title_delete', {'id': project_title.id}) }}" class="btn btn-danger">Delete</a>
-    <a href="{{ path('admin_project_title_index') }}" class="btn btn-secondary">Back</a>
+    <a href="{{ path('admin_project_title_index') }}" class="btn btn-link">Back</a>
 {% endblock %}

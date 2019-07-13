@@ -4,7 +4,6 @@ namespace Tests\Project;
 
 use Tests\Config\Web\TestCase;
 
-/** @group wip */
 class ShowTest extends TestCase
 {
     public function testShow()

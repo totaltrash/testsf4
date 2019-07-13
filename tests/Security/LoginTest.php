@@ -15,11 +15,8 @@ class LoginTest extends TestCase
         $page = $this->getPage();
 
         $this->visitRoute('home');
-
-        //this is fooked - login from previous test is remembered... logout here but breaks when run this test on its own
-        // $page->clickLink('Logout');
-        
         $this->assert->currentRoute('security_login');
+
         $page->fillField('username', 'auser');
         $page->fillField('password', 'auserpass');
         $page->pressButton('Sign in');

@@ -26,6 +26,7 @@ class Builder
         $menu->addChild('Table', ['route' => 'test_table']);
         $menu->addChild('Service', ['route' => 'test_service']);
         $menu->addChild('Other', ['route' => 'test_other']);
+        $menu->addChild('Profile', ['route' => 'profile_index']);
         $menu->addChild('Logout', ['route' => 'security_logout']);
 
         if ($sc->isGranted('ROLE_ADMIN')) {

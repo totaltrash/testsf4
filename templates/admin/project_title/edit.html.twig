@@ -8,6 +8,6 @@
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ include('admin/project_title/_form.html.twig') }}
         <button class="btn btn-primary">Save</button>
-        <a href="{{ path('admin_project_title_show', {'id': projectTitle.id}) }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ path('admin_project_title_show', {'id': projectTitle.id}) }}" class="btn btn-link">Cancel</a>
     {{ form_end(form) }}
 {% endblock %}

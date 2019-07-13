@@ -8,6 +8,6 @@
     {{ include('admin/project_type/_detail.html.twig') }}
     <form method="POST">
         <button class="btn btn-danger" type="submit">Confirm Delete</button>
-        <a href="{{ path('admin_project_type_show', {'id': project_type.id}) }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ path('admin_project_type_show', {'id': project_type.id}) }}" class="btn btn-link">Cancel</a>
     </form>
 {% endblock %}

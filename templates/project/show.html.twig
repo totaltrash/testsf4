@@ -11,7 +11,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('project_delete', {'id': project.id}) }}" class="btn btn-danger">Delete</a>
         {% endif %}
-        <a href="{{ path('project_index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ path('project_index') }}" class="btn btn-link">Back</a>
     </div>
     <hr />
     <ul class="nav nav-pills" id="myTab" role="tablist">
