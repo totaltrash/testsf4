@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,36 +17,46 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"index"})
+     * @Groups({"project_index"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"index"})
+     * @Groups({"project_index"})
      * @Assert\NotBlank(message="Required field")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"index"})
+     * @Groups({"project_index"})
      * @Assert\NotBlank(message="Required field")
      */
     private $property;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"index"})
+     * @Groups({"project_index"})
      * @Assert\NotBlank(message="Required field")
      */
     private $title;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"index"})
+     * @Groups({"project_index"})
      */
     private $active = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="project")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,6 +107,37 @@ class Project
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            // set the owning side to null (unless already changed)
+            if ($task->getProject() === $this) {
+                $task->setProject(null);
+            }
+        }
 
         return $this;
     }

@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/project")
@@ -28,7 +29,7 @@ class ProjectController extends AbstractController
 
         return [
             'projects' => $projects,
-            'projects_json' => $serializer->serialize($projects, 'json', ['index']),
+            'projects_json' => $serializer->serialize($projects, 'json', ['groups' => ['project_index']]),
         ];
     }
 
@@ -65,10 +66,11 @@ class ProjectController extends AbstractController
      * @Route("/{id}", name="project_show", methods={"GET"})
      * @Template
      */
-    public function show(Project $project)
+    public function show(Project $project, SerializerInterface $serializer)
     {
         return [
             'project' => $project,
+            'tasks_json' => $serializer->serialize($project->getTasks(), 'json', ['groups' => ['project_show']]),
         ];
     }
 
@@ -104,6 +106,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/delete", name="project_delete", methods={"GET","POST"})
      * @Template
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Project $project)
     {

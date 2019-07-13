@@ -59,6 +59,29 @@ trait FixtureFactory
         return $fixture;
     }
 
+    protected function createTaskFixture(Entity\Project $project, array $options = [])
+    {
+        $options = array_merge([
+            'title' => 'Some Task Title',
+            'dueDate' => 'tomorrow',
+            'completionDate' => 'today',
+            'createdDate' => 'yesterday',
+            'status' => Entity\Task::STATUS_PENDING,
+        ], $options);
+        
+        $fixture = new Entity\Task();
+        $fixture
+            ->setProject($project)
+            ->setTitle($options['title'])
+            ->setStatus($options['status'])
+            ->setCreatedDate(new DateTime($options['createdDate']))
+            ->setDueDate(new DateTime($options['dueDate']))
+            ->setCompletionDate(new DateTime($options['completionDate']))
+        ;
+
+        return $fixture;
+    }
+
     protected function createProjectTypeFixture($name, array $options = [])
     {
         $fixture = new Entity\ProjectType();
