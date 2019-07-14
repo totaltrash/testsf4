@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Task Title{% endblock %}
+
+{% block content %}
+    <h1>Delete Task Title</h1>
+
+    {{ include('admin/task_title/_detail.html.twig') }}
+    <form method="POST">
+        <button class="btn btn-danger" title="submit">Confirm Delete</button>
+        <a href="{{ path('admin_task_title_show', {'id': task_title.id}) }}" class="btn btn-link">Cancel</a>
+    </form>
+{% endblock %}

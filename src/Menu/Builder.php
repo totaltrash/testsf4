@@ -29,6 +29,7 @@ class Builder
             $admin->addChild('User Management', ['route' => 'admin_user_index']);
             $admin->addChild('Project Types', ['route' => 'admin_project_type_index']);
             $admin->addChild('Project Titles', ['route' => 'admin_project_title_index']);
+            $admin->addChild('Task Titles', ['route' => 'admin_task_title_index']);
         }
 
         $profile = $menu->addChild('Profile', ['attributes' => ['dropdown' => true]]);

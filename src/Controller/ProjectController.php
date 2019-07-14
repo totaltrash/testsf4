@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Task;
 use App\Form\ProjectType;
+use App\Form\TaskType;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectTypeRepository;
 use App\Repository\ProjectTitleRepository;
+use App\Repository\TaskTitleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,9 +50,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($project);
-            $entityManager->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
 
             return $this->redirectToRoute('project_index');
         }
@@ -119,6 +122,31 @@ class ProjectController extends AbstractController
 
         return [
             'project' => $project,
+        ];
+    }
+
+    /**
+     * @Route("/{id}/addtask", name="project_add_task", methods={"GET","POST"})
+     * @Template
+     */
+    public function addTask(Request $request, Project $project, TaskTitleRepository $taskTitleRepository)
+    {
+        $task = new Task($project);
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
+        }
+
+        return [
+            'project' => $project,
+            'form' => $form->createView(),
+            'taskTitles' => $taskTitleRepository->findAll(),
         ];
     }
 }

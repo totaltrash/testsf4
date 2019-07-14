@@ -33,10 +33,10 @@
           :per-page="pagination.perPage"
           :current-page="pagination.currentPage"
         >
-          <template slot="type" slot-scope="data">
-            <!--<a :href="showLink.replace('_id_', data.item.id)">-->
-            {{ data.item.type }}
-            <!--</a>-->
+          <template slot="dueDate" slot-scope="data">{{ formatDate(data.item.dueDate, 'DD/MM/YYYY') }}</template>
+          <template slot="completionDate" slot-scope="data">{{ formatDate(data.item.completionDate, 'DD/MM/YYYY') }}</template>
+          <template slot="title" slot-scope="data">
+            <a :href="showLink.replace('_id_', data.item.id)">{{ data.item.title }}</a>
           </template>
         </b-table>
       </b-col>
@@ -45,13 +45,15 @@
 </template>
 
 <script>
+import { format } from "date-fns"
+
 export default {
   props: {
-    items: Array
-    // showLink: {
-    //   required: true,
-    //   type: String
-    // }
+    items: Array,
+    showLink: {
+      required: true,
+      type: String
+    }
   },
   mounted() {
     //Set the initial number of items
@@ -62,6 +64,8 @@ export default {
       fields: [
         { key: "id", sortable: true },
         { key: "title", sortable: true },
+        { key: "statusLabel", label: "Status", sortable: true },
+        { key: "dueDate", sortable: true },
         { key: "completionDate", sortable: true }
       ],
       filter: {
@@ -87,6 +91,11 @@ export default {
       })
       this.pagination.totalRows = filteredItems.length
       return filteredItems
+    }
+  },
+  methods: {
+    formatDate(isoDate) {
+      return isoDate ? format(isoDate, "DD/MM/YYYY") : ""
     }
   }
 }

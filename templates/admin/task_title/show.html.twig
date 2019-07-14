@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Title{% endblock %}
+
+{% block content %}
+    <h1>Task Title</h1>
+
+    {{ include('admin/task_title/_detail.html.twig') }}
+    <a href="{{ path('admin_task_title_edit', {'id': task_title.id}) }}" class="btn btn-primary">Edit</a>
+    <a href="{{ path('admin_task_title_delete', {'id': task_title.id}) }}" class="btn btn-danger">Delete</a>
+    <a href="{{ path('admin_task_title_index') }}" class="btn btn-link">Back</a>
+{% endblock %}

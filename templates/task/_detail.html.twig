@@ -1,0 +1,24 @@
+<span class="task-detail-status badge-secondary">{{ task.statuslabel }}</span>
+<h1>{{ task.title }}</h1>
+{% if task.description %}
+    <p>{{ task.description|nl2br }}</p>
+{% else %}
+    <p><em>No description provided</em></p>
+{% endif %}
+
+<div class="row">
+    <div class="form-group-static col-md-6">
+        <label class="col-md-4 col-6">Due Date</label>
+        <div class="col-md-8 col-6">
+            {{ task.duedate|date('d/m/Y') }}
+        </div>
+    </div>
+    {% if task.completiondate %}
+        <div class="form-group-static col-md-6">
+            <label class="col-md-4 col-6">Completion Date</label>
+            <div class="col-md-8 col-6">
+                {{ task.completiondate|date('d/m/Y') }}
+            </div>
+        </div>
+    {% endif %}
+</div>

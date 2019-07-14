@@ -18,7 +18,6 @@ class ChangePasswordTest extends TestCase
         ]);
     }
 
-    /** @group wip */
     public function testChangePassword()
     {
         $this->asUser('admin');

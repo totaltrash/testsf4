@@ -5,8 +5,28 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootstrap-vue/src/index.scss";
 
-#content-wrapper > h1 {
+#content-wrapper > h1,
+#content-wrapper > .project-detail {
   @extend .my-4;
+}
+
+.project-detail {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+.project-detail-status {
+  @extend .badge;
+  @extend .badge-danger;
+  @extend .float-lg-right;
+  @extend .mt-4;
+  font-size: 1.5rem;
+}
+
+.task-detail-status {
+  @extend .badge;
+  @extend .float-lg-right;
+  @extend .mt-4;
+  font-size: 1.5rem;
 }
 
 .table-toolbar > div {

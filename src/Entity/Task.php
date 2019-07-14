@@ -4,12 +4,19 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  */
 class Task
 {
+    const ALL_STATUS_LABELS = [
+        self::STATUS_PENDING => 'Pending',
+        self::STATUS_COMPLETED => 'Completed',
+        self::STATUS_CANCELLED => 'Cancelled',
+    ];
+
     const STATUS_PENDING = 'P';
     const STATUS_COMPLETED = 'C';
     const STATUS_CANCELLED = 'Z';
@@ -25,6 +32,7 @@ class Task
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"project_show"})
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -60,17 +68,35 @@ class Task
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"project_show"})
+     * @Assert\NotNull
      */
     private $dueDate;
 
-    public function __construct()
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $history = [];
+
+    public function __construct(Project $project)
     {
+        $this->project = $project;
+        $this->status = self::STATUS_PENDING;
         $this->createdDate = new \DateTime();
+        $this->dueDate = new \DateTime('+4weeks');
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @Groups({"project_show"})
+     */
+    public function getStatusLabel()
+    {
+        return self::ALL_STATUS_LABELS[$this->status];
     }
 
     public function getTitle(): ?string
@@ -114,8 +140,28 @@ class Task
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(string $status, User $user = null): self
     {
+        //drop out if no change
+        if ($status === $this->status) {
+            return $this;
+        }
+
+        if ($status === self::STATUS_PENDING) {
+            $this->completionDate = null;
+        } else {
+            $this->completionDate = new \DateTime();
+        }
+
+        if ($user !== null) {
+            $this->history[] = sprintf(
+                'Status changed to "%s" by %s, %s',
+                self::ALL_STATUS_LABELS[$status],
+                $user->getDisplayName(),
+                (new \DateTime())->format('d/m/Y H:i a')
+            );
+        }
+
         $this->status = $status;
 
         return $this;
@@ -138,22 +184,20 @@ class Task
         return $this->project;
     }
 
-    public function setProject(?Project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
     public function getDueDate(): ?\DateTimeInterface
     {
         return $this->dueDate;
     }
 
-    public function setDueDate(\DateTimeInterface $dueDate): self
+    public function setDueDate(\DateTimeInterface $dueDate = null): self
     {
         $this->dueDate = $dueDate;
 
         return $this;
+    }
+
+    public function getHistory()
+    {
+        return $this->history;
     }
 }

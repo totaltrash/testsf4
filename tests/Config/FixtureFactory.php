@@ -70,19 +70,26 @@ trait FixtureFactory
         $options = array_merge([
             'title' => 'Some Task Title',
             'dueDate' => 'tomorrow',
-            'completionDate' => 'today',
+            'completionDate' => null,
             'createdDate' => 'yesterday',
             'status' => Entity\Task::STATUS_PENDING,
         ], $options);
         
-        $fixture = new Entity\Task();
+        $fixture = new Entity\Task($project);
+
+        if ($options['status'] !== Entity\Task::STATUS_PENDING) {
+            $fixture->setStatus($options['status']);
+        }
+
         $fixture
-            ->setProject($project)
             ->setTitle($options['title'])
-            ->setStatus($options['status'])
             ->setCreatedDate(new DateTime($options['createdDate']))
             ->setDueDate(new DateTime($options['dueDate']))
-            ->setCompletionDate(new DateTime($options['completionDate']))
+            ->setCompletionDate(
+                $options['completionDate']
+                ? new DateTime($options['completionDate'])
+                : null
+            )
         ;
 
         return $fixture;
@@ -101,6 +108,16 @@ trait FixtureFactory
     protected function createProjectTitleFixture($name, array $options = [])
     {
         $fixture = new Entity\ProjectTitle();
+        $fixture
+            ->setName($name)
+        ;
+
+        return $fixture;
+    }
+
+    protected function createTaskTitleFixture($name, array $options = [])
+    {
+        $fixture = new Entity\TaskTitle();
         $fixture
             ->setName($name)
         ;

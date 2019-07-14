@@ -1,4 +1,8 @@
-{{ form_widget(form) }}
+<div class="row">
+    <div class="col-lg-6">
+        {{ form_widget(form) }}
+    </div>
+</div>
 <datalist id="project-titles">
     {% for projectTitle in projectTitles %}
         <option>{{ projectTitle.name }}</option>

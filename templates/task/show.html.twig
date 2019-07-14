@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task{% endblock %}
+
+{% block content %}
+    {{ include('project/_detail.html.twig', {'project': task.project}) }}
+    <hr />
+    {{ include('task/_detail.html.twig') }}
+
+    <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn btn-primary">Edit</a>
+    <span id="status-changer" class="dropdown">
+        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Change Status
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ path('task_change_status', {'id': task.id, 'status': constant('App\\Entity\\Task::STATUS_PENDING')}) }}">Pending</a>
+            <a class="dropdown-item" href="{{ path('task_change_status', {'id': task.id, 'status': constant('App\\Entity\\Task::STATUS_COMPLETED')}) }}">Completed</a>
+            <a class="dropdown-item" href="{{ path('task_change_status', {'id': task.id, 'status': constant('App\\Entity\\Task::STATUS_CANCELLED')}) }}">Cancelled</a>
+        </div>
+    </span>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <span class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ path('task_delete', {'id': task.id}) }}">Delete Task</a>
+            </div>
+        </span>
+    {% endif %}
+
+    {% if task.history|length > 0 %}
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#task-history">
+            Show History
+        </button>
+    {% endif %}
+
+    <a href="{{ path('project_show', {'id': task.project.id}) }}" class="btn btn-link">Back</a>
+
+    {% if task.history|length > 0 %}
+        <div class="collapse" id="task-history">
+            <h4 style="margin-top:2rem;">History</h4>
+            <p>{{ task.history|join('\n')|nl2br() }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

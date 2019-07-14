@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Task Titles</h1>
+    <task-title-table :items="{{ task_titles_json }}" show-link="{{ path('admin_task_title_show', {'id': '_id_'}) }}"></task-title-table>
+    <a href="{{ path('admin_task_title_new') }}" class="btn btn-primary">Add New</a>
+{% endblock %}

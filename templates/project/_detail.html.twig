@@ -1,5 +1,8 @@
-<h3>
-{{ project.type|upper }}<br />
-{{ project.property|upper }}<br />
-{{ project.title|upper }}
-</h3>
+{% if not project.active %}
+    <span class="project-detail-status">Inactive</span></small>
+{% endif %}
+<div class="project-detail">
+    {{ project.type }}<br />
+    {{ project.property }}<br />
+    {{ project.title }}
+</div>
