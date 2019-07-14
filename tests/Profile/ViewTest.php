@@ -6,7 +6,7 @@ use Tests\Config\Web\TestCase;
 
 class ViewTest extends TestCase
 {
-    const PROFILE_LINK = 'Profile';
+    const PROFILE_LINK = 'My Profile';
 
     public function setUp()
     {

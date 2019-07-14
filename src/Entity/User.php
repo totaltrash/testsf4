@@ -12,6 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const ALL_ROLE_LABELS = [
+        'Administrator' => 'ROLE_ADMIN',
+        'User' => 'ROLE_USER',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -58,11 +63,6 @@ class User implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $enabled;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
@@ -104,10 +104,15 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getRoleLabels(): array
+    {
+        return array_map(function ($role) {
+            return array_search($role, self::ALL_ROLE_LABELS);
+        }, $this->roles);
     }
 
     public function setRoles(array $roles): self
@@ -180,18 +185,6 @@ class User implements UserInterface
     public function setSurname(?string $surname): self
     {
         $this->surname = $surname;
-
-        return $this;
-    }
-
-    public function getEnabled(): ?bool
-    {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled): self
-    {
-        $this->enabled = $enabled;
 
         return $this;
     }

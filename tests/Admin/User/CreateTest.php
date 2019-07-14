@@ -38,7 +38,7 @@ class CreateTest extends TestCase
         $this->page->fillField('First name', 'Some');
         $this->page->fillField('Surname', 'User');
         $this->page->fillField('Email', 'some@email.com');
-        $this->page->checkField('Enabled');
+        $this->page->checkField('User');
         $this->page->pressButton('Save');
 
         $this->assert->currentRoute('admin_user_index');

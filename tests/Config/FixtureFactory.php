@@ -24,7 +24,6 @@ trait FixtureFactory
             'email' => $username . '@email.com',
             'firstName' => 'Some',
             'surname' => 'User',
-            'enabled' => true,
         ], $options);
 
         $options['roles'] = is_array($options['roles'])
@@ -40,7 +39,6 @@ trait FixtureFactory
             ->setFirstName($options['firstName'])
             ->setSurname($options['surname'])
             ->setEmail($options['email'])
-            ->setEnabled($options['enabled'])
             ->setRoles($options['roles'])
         ;
 

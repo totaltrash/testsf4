@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -20,7 +21,11 @@ class UserType extends AbstractType
             ->add('firstName')
             ->add('surname')
             ->add('email')
-            ->add('enabled')
+            ->add('roles', ChoiceType::class, [
+                'choices' => User::ALL_ROLE_LABELS,
+                'multiple' => true,
+                'expanded' => true,
+            ])
         ;
 
         // only add the password field if adding a new user

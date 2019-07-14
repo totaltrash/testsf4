@@ -24,8 +24,15 @@ class Builder
 
         $menu->addChild('Projects', ['route' => 'project_index']);
         
+        if ($sc->isGranted('ROLE_ADMIN')) {
+            $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
+            $admin->addChild('User Management', ['route' => 'admin_user_index']);
+            $admin->addChild('Project Types', ['route' => 'admin_project_type_index']);
+            $admin->addChild('Project Titles', ['route' => 'admin_project_title_index']);
+        }
+
         $profile = $menu->addChild('Profile', ['attributes' => ['dropdown' => true]]);
-        $profile->addChild('Profile', ['route' => 'profile_index']);
+        $profile->addChild('My Profile', ['route' => 'profile_index']);
         $profile->addChild('Change Password', ['route' => 'profile_change_password']);
         $profile->addChild('Logout', ['route' => 'security_logout']);
 
@@ -33,14 +40,6 @@ class Builder
         $example->addChild('Table', ['route' => 'test_table']);
         $example->addChild('Service', ['route' => 'test_service']);
         $example->addChild('Other', ['route' => 'test_other']);
-
-
-        if ($sc->isGranted('ROLE_ADMIN')) {
-            $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);
-            $admin->addChild('User Management', ['route' => 'admin_user_index']);
-            $admin->addChild('Project Types', ['route' => 'admin_project_type_index']);
-            $admin->addChild('Project Titles', ['route' => 'admin_project_title_index']);
-        }
 
         return $menu;
     }

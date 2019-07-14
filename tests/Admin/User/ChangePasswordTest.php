@@ -4,10 +4,9 @@ namespace Tests\Admin\User;
 
 use Tests\Config\Web\TestCase;
 
-/** @group wip */
 class ChangePasswordTest extends TestCase
 {
-    const EDIT_LINK = 'Change Password';
+    const EDIT_LINK = 'Change User Password';
 
     public function setUp()
     {
@@ -19,6 +18,7 @@ class ChangePasswordTest extends TestCase
         ]);
     }
 
+    /** @group wip */
     public function testChangePassword()
     {
         $this->asUser('admin');

@@ -9,9 +9,6 @@
           </b-input-group-append>
         </b-input-group>
       </b-col>
-      <b-col md="2">
-        <b-form-checkbox v-model="filter.enabled" name="filter-enabled" switch class="my-2">Enabled</b-form-checkbox>
-      </b-col>
       <b-col>
         <b-pagination
           v-model="pagination.currentPage"
@@ -68,8 +65,7 @@ export default {
         { key: "email", sortable: true }
       ],
       filter: {
-        keyword: "",
-        enabled: true
+        keyword: ""
       },
       pagination: {
         totalRows: 1,
@@ -85,11 +81,10 @@ export default {
       let keyword = this.filter.keyword.toLowerCase()
       let filteredItems = this.items.filter(item => {
         return (
-          item.enabled === this.filter.enabled &&
-          (!this.filter.keyword ||
-            item.username.toLowerCase().includes(keyword) ||
-            item.firstName.toLowerCase().includes(keyword) ||
-            item.surname.toLowerCase().includes(keyword))
+          !this.filter.keyword ||
+          item.username.toLowerCase().includes(keyword) ||
+          item.firstName.toLowerCase().includes(keyword) ||
+          item.surname.toLowerCase().includes(keyword)
         )
       })
       this.pagination.totalRows = filteredItems.length
