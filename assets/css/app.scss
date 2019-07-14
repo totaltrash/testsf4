@@ -14,7 +14,7 @@
   text-transform: uppercase;
   font-size: 1.5rem;
 }
-.project-detail-status {
+.detail-status {
   @extend .badge;
   @extend .badge-danger;
   @extend .float-lg-right;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Project;
+namespace Tests\Organisation;
 
 use Tests\Config\Web\TestCase;
 
@@ -10,13 +10,13 @@ class IndexTest extends TestCase
     {
         $this->fixture->persistEntities([
             $user = $this->createUserFixture('user'),
-            $project = $this->createProjectFixture(['title' => 'My Project']),
+            $organisation = $this->createOrganisationFixture(['name' => 'Some Organisation']),
         ]);
 
         $this->asUser('user');
         $this->visitRoute('home');
-        $this->page->clickLink('Projects');
-        $this->assert->currentRoute('project_index');
-        $this->assert->responseContains('My Project');
+        $this->page->clickLink('Organisations');
+        $this->assert->currentRoute('organisation_index');
+        $this->assert->responseContains('Some Organisation');
     }
 }

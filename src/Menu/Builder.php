@@ -23,6 +23,7 @@ class Builder
         $menu->setChildrenAttributes(['class' => 'navbar-nav']);
 
         $menu->addChild('Projects', ['route' => 'project_index']);
+        $menu->addChild('Organisations', ['route' => 'organisation_index']);
         
         if ($sc->isGranted('ROLE_ADMIN')) {
             $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);

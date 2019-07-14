@@ -65,6 +65,22 @@ trait FixtureFactory
         return $fixture;
     }
 
+    protected function createOrganisationFixture(array $options = [])
+    {
+        $options = array_merge([
+            'name' => 'Some Organisation',
+            'active' => true,
+        ], $options);
+        
+        $fixture = new Entity\Organisation();
+        $fixture
+            ->setName($options['name'])
+            ->setActive($options['active'])
+        ;
+
+        return $fixture;
+    }
+
     protected function createTaskFixture(Entity\Project $project, array $options = [])
     {
         $options = array_merge([

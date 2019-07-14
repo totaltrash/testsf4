@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organisations{% endblock %}
+
+{% block content %}
+    <h1>Organisations</h1>
+    <organisation-table :items="{{ organisations_json }}" show-link="{{ path('organisation_show', {'id': '_id_'}) }}"></organisation-table>
+    <a href="{{ path('organisation_new') }}" class="btn btn-primary">Add New</a>
+{% endblock %}
