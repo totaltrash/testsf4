@@ -30,7 +30,7 @@
         </span>
     {% endif %}
 
-    {% if task.history|length > 0 %}
+    {% if task.history is not empty %}
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#task-history">
             Show History
         </button>
@@ -38,7 +38,7 @@
 
     <a href="{{ path('project_show', {'id': task.project.id}) }}" class="btn btn-link">Back</a>
 
-    {% if task.history|length > 0 %}
+    {% if task.history is not empty %}
         <div class="collapse" id="task-history">
             <h4 style="margin-top:2rem;">History</h4>
             <p>{{ task.history|join('\n')|nl2br() }}</p>
