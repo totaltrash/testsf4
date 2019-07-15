@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+    <h1>Contacts</h1>
+    <contact-table :items="{{ contacts_json }}" show-link="{{ path('contact_show', {'id': '_id_'}) }}"></contact-table>
+    <a href="{{ path('contact_new') }}" class="btn btn-primary">Add New</a>
+{% endblock %}

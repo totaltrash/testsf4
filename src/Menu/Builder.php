@@ -24,6 +24,7 @@ class Builder
 
         $menu->addChild('Projects', ['route' => 'project_index']);
         $menu->addChild('Organisations', ['route' => 'organisation_index']);
+        $menu->addChild('Contacts', ['route' => 'contact_index']);
         
         if ($sc->isGranted('ROLE_ADMIN')) {
             $admin = $menu->addChild('Admin', ['attributes' => ['dropdown' => true]]);

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,9 +34,15 @@ class Organisation
      */
     private $active;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="organisation")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->active = true;
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,6 +70,37 @@ class Organisation
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setOrganisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getOrganisation() === $this) {
+                $contact->setOrganisation(null);
+            }
+        }
 
         return $this;
     }

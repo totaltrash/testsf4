@@ -81,6 +81,26 @@ trait FixtureFactory
         return $fixture;
     }
 
+    protected function createContactFixture(array $options = [])
+    {
+        $options = array_merge([
+            'firstName' => 'Some',
+            'surname' => 'Contact',
+            'notes' => '',
+            'organisation' => null,
+        ], $options);
+        
+        $fixture = new Entity\Contact();
+        $fixture
+            ->setFirstName($options['firstName'])
+            ->setSurname($options['surname'])
+            ->setNotes($options['notes'])
+            ->setOrganisation($options['organisation'])
+        ;
+
+        return $fixture;
+    }
+
     protected function createTaskFixture(Entity\Project $project, array $options = [])
     {
         $options = array_merge([

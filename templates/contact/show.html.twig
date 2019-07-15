@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+    {{ include('contact/_detail.html.twig') }}
+    <div>
+        <a href="{{ path('contact_edit', {'id': contact.id}) }}" class="btn btn-primary">Edit</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <span class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ path('contact_delete', {'id': contact.id}) }}">Delete Contact</a>
+                </div>
+            </span>
+        {% endif %}
+        <a href="{{ path('contact_index') }}" class="btn btn-link">Back</a>
+    </div>
+    {#
+    <ul class="nav nav-tabs" id="contactTab" role="tablist" style="margin-top: 3rem; margin-bottom: 1rem">
+        <li class="nav-item">
+            <a class="nav-link active" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="true">Tasks</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Client</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Other</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="contactTabContent">
+        <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+            <contact-tasks-table :items="{{ tasks_json }}" show-link="{{ path('task_show', {'id': '_id_'}) }}"></contact-tasks-table>
+            <a href="{{ path('contact_add_task', {'id': contact.id}) }}" class="btn btn-primary">Add New Task</a>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Test</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    </div>
+    #}
+{% endblock %}

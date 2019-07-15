@@ -19,6 +19,7 @@ trait Configuration
         'project_title_id_seq',
         'task_title_id_seq',
         'organisation_id_seq',
+        'contact_id_seq',
     );
 
     //define tables that should not be purged
