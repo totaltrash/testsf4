@@ -19,32 +19,16 @@ class OrganisationRepository extends ServiceEntityRepository
         parent::__construct($registry, Organisation::class);
     }
 
-    // /**
-    //  * @return Organisation[] Returns an array of Organisation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findActive()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findBy(['active' => true], ['name' => 'ASC']);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Organisation
+    public function findActiveQueryBuilder()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.active = true')
+            ->orderBy('o.name', 'ASC')
         ;
     }
-    */
 }

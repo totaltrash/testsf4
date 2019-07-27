@@ -33,10 +33,12 @@ class CreateTest extends TestCase
 
         $this->page->fillField('contact_firstName', 'Some');
         $this->page->fillField('contact_surname', 'Contact');
+        $this->page->fillField('contact_organisation', 'Some Organisation');
         $this->page->pressButton('Save');
 
         $this->assert->currentRoute('contact_index');
         $this->assert->responseContains('Some Contact');
+        $this->assert->responseContains('Some Organisation');
     }
 
     public function testValidations()

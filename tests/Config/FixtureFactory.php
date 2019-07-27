@@ -101,6 +101,63 @@ trait FixtureFactory
         return $fixture;
     }
 
+    protected function createContactEmailFixture(Entity\Contact $contact, array $options = [])
+    {
+        $options = array_merge([
+            'type' => Entity\Contact\Email::TYPE_WORK,
+            'email' => 'some@email.com',
+        ], $options);
+        
+        $fixture = new Entity\Contact\Email();
+        $fixture
+            ->setContact($contact)
+            ->setType($options['type'])
+            ->setEmail($options['email'])
+        ;
+
+        return $fixture;
+    }
+
+    protected function createContactPhoneFixture(Entity\Contact $contact, array $options = [])
+    {
+        $options = array_merge([
+            'type' => Entity\Contact\Phone::TYPE_WORK,
+            'phone' => '03 5155 5555',
+        ], $options);
+        
+        $fixture = new Entity\Contact\Phone();
+        $fixture
+            ->setContact($contact)
+            ->setType($options['type'])
+            ->setPhone($options['phone'])
+        ;
+
+        return $fixture;
+    }
+
+    protected function createContactAddressFixture(Entity\Contact $contact, array $options = [])
+    {
+        $options = array_merge([
+            'type' => Entity\Contact\Address::TYPE_WORK,
+            'address1' => 'Address 1',
+            'address2' => 'Address 2',
+            'address3' => 'Address 3',
+            'address4' => 'Address 4',
+        ], $options);
+        
+        $fixture = new Entity\Contact\Address();
+        $fixture
+            ->setContact($contact)
+            ->setType($options['type'])
+            ->setAddress1($options['address1'])
+            ->setAddress2($options['address2'])
+            ->setAddress3($options['address3'])
+            ->setAddress4($options['address4'])
+        ;
+
+        return $fixture;
+    }
+
     protected function createTaskFixture(Entity\Project $project, array $options = [])
     {
         $options = array_merge([

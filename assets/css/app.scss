@@ -1,15 +1,21 @@
 :root {
   font-size: 13px;
 }
-
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "node_modules/bootstrap-vue/src/index.scss";
 
-#content-wrapper > h1,
-#content-wrapper > .project-detail {
-  @extend .my-4;
+body {
+  padding-bottom: 6rem;
 }
 
+#content-wrapper {
+  @extend .pt-4;
+}
+#content-wrapper > h1,
+#content-wrapper > .project-detail {
+  @extend .mt-2;
+  @extend .mb-4;
+}
 .project-detail {
   text-transform: uppercase;
   font-size: 1.5rem;
@@ -44,5 +50,12 @@
 
   > div {
     @extend .form-control-plaintext;
+  }
+}
+
+.contact-attr-collection {
+  margin-bottom: 3rem;
+  .empty-row {
+    font-style: italic;
   }
 }

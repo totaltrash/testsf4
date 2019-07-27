@@ -10,6 +10,8 @@ global.Vue = Vue
 global.$ = global.jQuery = $
 
 Vue.use(BootstrapVue)
+// import { TablePlugin } from 'bootstrap-vue'
+// Vue.use(TablePlugin)
 
 new Vue({
   el: '#app',

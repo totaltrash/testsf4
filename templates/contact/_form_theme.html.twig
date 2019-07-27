@@ -1,0 +1,143 @@
+{#
+Useful reading for themeing a collection form:
+
+- https://stackoverflow.com/a/35715227/2384351
+- https://symfony.com/doc/current/form/form_themes.html#fragment-naming-for-collections
+
+Just don't try to inline this into the main template and use _self.
+
+#}
+
+{% macro email_template(email) %}
+    <div class="contact-attr">
+        <div class="form-row">
+            <div class="col-md-3 mb-2 mb-md-0">
+                {{ form_widget(email.type) }}
+            </div>
+            <div class="col-md-7 mb-2">
+                {{ form_widget(email.email, { 'attr': { 'placeholder': 'Email', 'autocomplete': 'off' } }) }}
+                {{ form_errors(email.email) }}
+            </div>
+            <div class="col-md-2 attr-action">
+                <button type="button" class="btn btn-outline-secondary btn-block contact-attr-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro phone_template(phone) %}
+    <div class="contact-attr">
+        <div class="form-row">
+            <div class="col-md-3 mb-2 mb-md-0">
+                {{ form_widget(phone.type) }}
+            </div>
+            <div class="col-md-7 mb-2">
+                {{ form_widget(phone.phone, { 'attr': { 'placeholder': 'Telephone Number', 'autocomplete': 'off' } }) }}
+                {{ form_errors(phone.phone) }}
+            </div>
+            <div class="col-md-2 attr-action">
+                <button type="button" class="btn btn-outline-secondary btn-block contact-attr-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro address_template(address) %}
+    <div class="contact-attr">
+        <div class="form-row">
+            <div class="col-md-3 mb-2 mb-md-0">
+                {{ form_widget(address.type) }}
+            </div>
+            <div class="col-md-7 mb-2">
+                {{ form_widget(address.address1, { 'attr': { 'placeholder': 'PO Box / Street', 'autocomplete': 'off' } }) }}
+                {{ form_errors(address.address1) }}
+                {{ form_widget(address.address2, { 'attr': { 'class': 'mt-1', 'placeholder': 'City', 'autocomplete': 'off' } }) }}
+                <div class="form-row">
+                    <div class="col-6">
+                        {{ form_widget(address.address3, { 'attr': { 'class': 'mt-1', 'placeholder': 'State', 'autocomplete': 'off', 'list': 'contact-address-states' } }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_widget(address.address4, { 'attr': { 'class': 'mt-1', 'placeholder': 'Post Code', 'autocomplete': 'off' } }) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 attr-action">
+                <button type="button" class="btn btn-outline-secondary btn-block contact-attr-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro empty_row(message, form) %}
+    <div class="empty-row {% if form.children is not empty %}d-none{% endif %}">{{ message }}</div>
+{% endmacro %}
+
+{% block _contact_emails_row %}
+    <div
+        class="contact-attr-collection"
+        data-prototype="{{ _self.email_template(form.vars.prototype)|e('html_attr') }}"
+    >
+        <div class="form-row">
+            <div class="col-md-10">
+                <h3>Email Addresses</h3>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-primary btn-block add-button" type="button">Add</button>
+            </div>
+        </div>
+        {{ _self.empty_row('No Email Addresses', form) }}
+        {% for email in form.children %}
+            {{ _self.email_template(email) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block _contact_phones_row %}
+    <div
+        class="contact-attr-collection"
+        data-prototype="{{ _self.phone_template(form.vars.prototype)|e('html_attr') }}"
+    >
+        <div class="form-row">
+            <div class="col-md-10">
+                <h3>Phone Numbers</h3>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-primary btn-block add-button" type="button">Add</button>
+            </div>
+        </div>
+        {{ _self.empty_row('No Phone Numbers', form) }}
+        {% for phone in form.children %}
+            {{ _self.phone_template(phone) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block _contact_addresses_row %}
+    <div
+        class="contact-attr-collection"
+        data-prototype="{{ _self.address_template(form.vars.prototype)|e('html_attr') }}"
+    >
+        <div class="form-row">
+            <div class="col-md-10">
+                <h3>Addresses</h3>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-primary btn-block add-button" type="button">Add</button>
+            </div>
+        </div>
+        {{ _self.empty_row('No Addresses', form) }}
+        {% for address in form.children %}
+            {{ _self.address_template(address) }}
+        {% endfor %}
+    </div>
+    <datalist id="contact-address-states">
+        <option>ACT</option>
+        <option>NSW</option>
+        <option>NT</option>
+        <option>QLD</option>
+        <option>SA</option>
+        <option>TAS</option>
+        <option>VIC</option>
+        <option>WA</option>
+    </datalist>
+{% endblock %}

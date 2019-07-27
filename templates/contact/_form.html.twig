@@ -1,5 +1,32 @@
+{% form_theme form 'contact/_form_theme.html.twig' %}
 <div class="row">
     <div class="col-lg-6">
-        {{ form_widget(form) }}
+        <div class="card">
+            <div class="card-body">
+                {{ form_errors(form) }}
+                <div class="form-row">
+                    <div class="col-md-6">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.surname) }}
+                    </div>
+                </div>
+                {{ form_row(form.notes) }}
+                {{ form_row(form.organisation) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.emails) }}
+        {{ form_row(form.phones) }}
+        {{ form_row(form.addresses) }}
     </div>
 </div>
+{% if organisations is defined %}
+    <datalist id="organisation-names">
+        {% for organisation in organisations %}
+            <option>{{ organisation.name }}</option>
+        {% endfor %}
+    </datalist>
+{% endif %}

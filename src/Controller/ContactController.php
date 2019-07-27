@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Organisation;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Repository\OrganisationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/contact")
@@ -37,7 +40,7 @@ class ContactController extends AbstractController
      * @Route("/new", name="contact_new", methods={"GET","POST"})
      * @Template
      */
-    public function new(Request $request)
+    public function new(Request $request, OrganisationRepository $organisationRepository)
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -45,7 +48,19 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $organisationName = $form->get('organisation')->getData();
+            if ($organisationName) {
+                $organisation = $organisationRepository->findOneByName($organisationName);
+                if ($organisation === null) {
+                    $this->addFlash('success', sprintf('Created new organisation "%s"', $organisationName));
+                    $organisation = new Organisation();
+                    $organisation->setName($organisationName);
+                    $em->persist($organisation);
+                }
+                $contact->setOrganisation($organisation);
+            }
             $em->persist($contact);
+            $this->addFlash('success', sprintf('Created new contact "%s"', $contact->getDisplayName()));
             $em->flush();
 
             return $this->redirectToRoute('contact_index');
@@ -54,6 +69,7 @@ class ContactController extends AbstractController
         return [
             'contact' => $contact,
             'form' => $form->createView(),
+            'organisations' => $organisationRepository->findActive(),
         ];
     }
 
@@ -73,13 +89,24 @@ class ContactController extends AbstractController
      * @Route("/{id}/edit", name="contact_edit", methods={"GET","POST"})
      * @Template
      */
-    public function edit(Request $request, Contact $contact)
+    public function edit(Request $request, Contact $contact, OrganisationRepository $organisationRepository)
     {
+        //store the original attributes
+        $originalEmails = $this->copyAttributes($contact->getEmails());
+        $originalPhones = $this->copyAttributes($contact->getPhones());
+        $originalAddresses = $this->copyAttributes($contact->getAddresses());
+
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            
+            $this->removeDeletedAttributes($contact->getEmails(), $originalEmails, $em);
+            $this->removeDeletedAttributes($contact->getPhones(), $originalPhones, $em);
+            $this->removeDeletedAttributes($contact->getAddresses(), $originalAddresses, $em);
+            
+            $em->flush();
 
             return $this->redirectToRoute('contact_show', [
                 'id' => $contact->getId(),
@@ -90,6 +117,24 @@ class ContactController extends AbstractController
             'contact' => $contact,
             'form' => $form->createView(),
         ];
+    }
+
+    private function removeDeletedAttributes($collection, $originalCollection, $em)
+    {
+        foreach ($originalCollection as $item) {
+            if (false === $collection->contains($item)) {
+                $em->remove($item);
+            }
+        }
+    }
+
+    private function copyAttributes($collection)
+    {
+        $copy = new ArrayCollection();
+        foreach ($collection as $item) {
+            $copy->add($item);
+        }
+        return $copy;
     }
 
     /**

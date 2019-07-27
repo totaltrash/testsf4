@@ -1,1 +1,32 @@
 <h1>{{ contact.displayname }}</h1>
+<p>{{ contact.notes|nl2br }}</p>
+{% if contact.organisation %}
+    <p>Organisation: {{ contact.organisation.name }}</p>
+{% endif %}
+{% for email in contact.emails %}
+    <div class="form-group-static">
+        <label class="col-sm-3 col-lg-2">Email ({{ email.typelabel }})</label>
+        <div class="col-sm-9 col-lg-10">
+            {{ email.email }}
+        </div>
+    </div>
+{% endfor %}
+{% for phone in contact.phones %}
+    <div class="form-group-static">
+        <label class="col-sm-3 col-lg-2">Phone ({{ phone.typelabel }})</label>
+        <div class="col-sm-9 col-lg-10">
+            {{ phone.phone }}
+        </div>
+    </div>
+{% endfor %}
+{% for address in contact.addresses %}
+    <div class="form-group-static">
+        <label class="col-sm-3 col-lg-2">Address ({{ address.typelabel }})</label>
+        <div class="col-sm-9 col-lg-10">
+            {{ address.address1 }}<br />
+            {{ address.address2 }}<br />
+            {{ address.address3 }}<br />
+            {{ address.address4 }}<br />
+        </div>
+    </div>
+{% endfor %}

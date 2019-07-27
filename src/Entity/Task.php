@@ -11,16 +11,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Task
 {
+    const STATUS_PENDING = 'P';
+    const STATUS_COMPLETED = 'C';
+    const STATUS_CANCELLED = 'Z';
+    
     const ALL_STATUS_LABELS = [
         self::STATUS_PENDING => 'Pending',
         self::STATUS_COMPLETED => 'Completed',
         self::STATUS_CANCELLED => 'Cancelled',
     ];
 
-    const STATUS_PENDING = 'P';
-    const STATUS_COMPLETED = 'C';
-    const STATUS_CANCELLED = 'Z';
-    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

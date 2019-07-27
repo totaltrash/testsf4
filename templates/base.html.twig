@@ -16,6 +16,13 @@
     <div class="{{ container_type }}">
         <div class="row">
             <div class="col" id="content-wrapper">
+                {% for label, messages in app.flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {% for message in messages %}
+                            {{ message }}<br />
+                        {% endfor %}
+                    </div>
+                {% endfor %}
                 {% block content %}{% endblock %}
             </div>
         </div>
