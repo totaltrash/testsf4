@@ -1,7 +1,10 @@
-:root {
-  font-size: 13px;
-}
+// :root {
+//   font-size: 16px;
+// }
+
+@import "bootswatch/cosmo/variables";
 @import "node_modules/bootstrap/scss/bootstrap";
+@import "bootswatch/cosmo/bootswatch";
 @import "node_modules/bootstrap-vue/src/index.scss";
 
 body {
@@ -16,6 +19,7 @@ body {
   @extend .mt-2;
   @extend .mb-4;
 }
+
 .project-detail {
   text-transform: uppercase;
   font-size: 1.5rem;
