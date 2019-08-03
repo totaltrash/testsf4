@@ -33,7 +33,7 @@
           :per-page="pagination.perPage"
           :current-page="pagination.currentPage"
         >
-          <template slot="firstName" slot-scope="data">
+          <template slot="name" slot-scope="data">
             <a :href="showLink.replace('_id_', data.item.id)">{{ data.item.displayName }}</a>
           </template>
         </b-table>
@@ -57,11 +57,7 @@ export default {
   },
   data() {
     return {
-      fields: [
-        { key: "id", sortable: true },
-        { key: "firstName", sortable: true },
-        { key: "surname", sortable: true }
-      ],
+      fields: [{ key: "name", sortable: true }],
       filter: {
         keyword: ""
       },

@@ -16,7 +16,7 @@
                 </div>
             </span>
         {% endif %}
-        <a href="{{ path('contact_index') }}" class="btn btn-link">Back</a>
+        <a href="{{ referrer ?: path('contact_index') }}" class="btn btn-link">Back</a>
     </div>
 
 {% endblock %}

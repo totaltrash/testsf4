@@ -18,28 +18,14 @@
         {% endif %}
         <a href="{{ path('organisation_index') }}" class="btn btn-link">Back</a>
     </div>
-    {#
-    <ul class="nav nav-tabs" id="organisationTab" role="tablist" style="margin-top: 3rem; margin-bottom: 1rem">
+    <ul class="nav nav-tabs" id="contactTab" role="tablist" style="margin-top: 3rem; margin-bottom: 1rem">
         <li class="nav-item">
-            <a class="nav-link active" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="true">Tasks</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Client</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contacts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Other</a>
+            <a class="nav-link active" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts" aria-selected="true">Contacts</a>
         </li>
     </ul>
-    <div class="tab-content" id="organisationTabContent">
-        <div class="tab-pane fade show active" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
-            <organisation-tasks-table :items="{{ tasks_json }}" show-link="{{ path('task_show', {'id': '_id_'}) }}"></organisation-tasks-table>
-            <a href="{{ path('organisation_add_task', {'id': organisation.id}) }}" class="btn btn-primary">Add New Task</a>
+    <div class="tab-content" id="contactTabContent">
+        <div class="tab-pane fade show active" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+            <contact-table :items="{{ contacts_json }}" show-link="{{ path('contact_show', {'id': '_id_', 'referrer': app.request.pathinfo}) }}"></contact-table>
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Test</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
     </div>
-    #}
 {% endblock %}

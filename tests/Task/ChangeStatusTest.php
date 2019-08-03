@@ -5,7 +5,6 @@ namespace Tests\Task;
 use Tests\Config\Web\TestCase;
 use App\Entity\Task;
 
-/** @group wip */
 class ChangeStatusTest extends TestCase
 {
     public function testChangeStatus()

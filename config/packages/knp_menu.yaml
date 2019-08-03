@@ -1,3 +1,7 @@
 knp_menu:
     twig:
         template: menu/knp_menu.html.twig
+    providers:
+        builder_alias: false
+        builder_service: false
+        container_aware: false

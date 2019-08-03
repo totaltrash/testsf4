@@ -77,10 +77,11 @@ class ContactController extends AbstractController
      * @Route("/{id}", name="contact_show", methods={"GET"})
      * @Template
      */
-    public function show(Contact $contact, SerializerInterface $serializer)
+    public function show(Request $request, Contact $contact, SerializerInterface $serializer)
     {
         return [
             'contact' => $contact,
+            'referrer' => $request->query->get('referrer'),
             // 'tasks_json' => $serializer->serialize($contact->getTasks(), 'json', ['groups' => ['contact_show']]),
         ];
     }

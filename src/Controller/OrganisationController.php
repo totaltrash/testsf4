@@ -66,7 +66,7 @@ class OrganisationController extends AbstractController
     {
         return [
             'organisation' => $organisation,
-            // 'tasks_json' => $serializer->serialize($organisation->getTasks(), 'json', ['groups' => ['organisation_show']]),
+            'contacts_json' => $serializer->serialize($organisation->getContacts(), 'json', ['groups' => ['organisation_show']]),
         ];
     }
 

@@ -20,20 +20,20 @@ class Contact
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"contact_index"})
+     * @Groups({"contact_index", "organisation_show"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"contact_index"})
+     * @Groups({"contact_index", "organisation_show"})
      * @Assert\NotBlank
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"contact_index"})
+     * @Groups({"contact_index", "organisation_show"})
      * @Assert\NotBlank
      */
     private $surname;
@@ -80,7 +80,7 @@ class Contact
 
     /**
      * Display name
-     * @Groups({"contact_index"})
+     * @Groups({"contact_index", "organisation_show"})
      */
     public function getDisplayName(): string
     {
